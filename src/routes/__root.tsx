@@ -29,14 +29,18 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "NBR Audit Selection 2023-24 — TIN Checker" },
+      { title: "Bangladesh TIN Checker - NBR Audit Selection 2023-24" },
       { name: "description", content: "Check if your TIN is selected for NBR Risk-Based Audit (Assessment Year 2023-24). Instant, offline lookup of 72,341 returns." },
       { name: "author", content: "M Asif Rahman" },
-      { property: "og:title", content: "NBR Audit Selection 2023-24 — TIN Checker" },
-      { property: "og:description", content: "Instantly check if your TIN was selected for NBR audit (AY 2023-24)." },
+      { property: "og:title", content: "Bangladesh TIN Checker - NBR Audit Selection 2023-24" },
+      { property: "og:description", content: "Check if your TIN is selected for NBR Risk-Based Audit (Assessment Year 2023-24). Instant, offline lookup of 72,341 returns." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Bangladesh TIN Checker - NBR Audit Selection 2023-24" },
+      { name: "twitter:description", content: "Check if your TIN is selected for NBR Risk-Based Audit (Assessment Year 2023-24). Instant, offline lookup of 72,341 returns." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/0cc55056-f341-48f6-94a2-891f210880f8" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/0cc55056-f341-48f6-94a2-891f210880f8" },
     ],
     links: [
       {
