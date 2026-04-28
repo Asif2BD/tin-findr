@@ -93,14 +93,14 @@ function Index() {
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
       <header className="border-b border-border bg-card/60 backdrop-blur-sm">
-        <div className="mx-auto max-w-5xl px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-lg bg-[image:var(--gradient-hero)] flex items-center justify-center text-primary-foreground font-bold text-lg shadow-[var(--shadow-elegant)]">
+        <div className="mx-auto max-w-5xl px-4 py-3 sm:py-4 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+            <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-lg bg-[image:var(--gradient-hero)] flex items-center justify-center text-primary-foreground font-bold text-base sm:text-lg shadow-[var(--shadow-elegant)] flex-shrink-0">
               N
             </div>
-            <div>
-              <div className="font-semibold leading-tight">NBR Audit Checker</div>
-              <div className="text-xs text-muted-foreground tracking-wide uppercase">
+            <div className="min-w-0">
+              <div className="font-semibold leading-tight text-sm sm:text-base truncate">NBR Audit Checker</div>
+              <div className="text-[10px] sm:text-xs text-muted-foreground tracking-wide uppercase truncate">
                 AY 2023–24 · Risk-Based
               </div>
             </div>
@@ -109,7 +109,7 @@ function Index() {
             href="https://nbr.gov.bd"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm text-muted-foreground hover:text-primary transition-colors"
+            className="text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors flex-shrink-0"
           >
             nbr.gov.bd ↗
           </a>
@@ -117,27 +117,27 @@ function Index() {
       </header>
 
       <main className="flex-1">
-        <section className="mx-auto max-w-3xl px-4 pt-12 pb-8 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs text-muted-foreground mb-6">
+        <section className="mx-auto max-w-3xl px-4 pt-8 sm:pt-12 pb-6 sm:pb-8 text-center">
+          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-[11px] sm:text-xs text-muted-foreground mb-4 sm:mb-6">
             <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--success)] animate-pulse" />
             Official NBR data · {totalRecords} returns
           </div>
-          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight">
             Is your TIN selected for{" "}
             <span className="bg-[image:var(--gradient-hero)] bg-clip-text text-transparent">
               NBR Audit?
             </span>
           </h1>
-          <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
+          <p className="mt-3 sm:mt-4 text-sm sm:text-base text-muted-foreground max-w-xl mx-auto px-2">
             Instantly check the official Risk-Based Audit Selection list for Assessment Year
             2023–24. Runs entirely in your browser — no data leaves your device.
           </p>
         </section>
 
-        <section className="mx-auto max-w-2xl px-4 pb-12">
+        <section className="mx-auto max-w-2xl px-4 pb-10 sm:pb-12">
           <form
             onSubmit={handleCheck}
-            className="rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-card)]"
+            className="rounded-2xl border border-border bg-card p-4 sm:p-6 shadow-[var(--shadow-card)]"
           >
             <label htmlFor="tin" className="block text-sm font-medium mb-2">
               Taxpayer Identification Number (TIN)
@@ -152,14 +152,14 @@ function Index() {
                 placeholder="e.g. 123456789012"
                 value={tin}
                 onChange={(e) => setTin(e.target.value.replace(/\D/g, ""))}
-                className="flex-1 rounded-lg border border-input bg-background px-4 py-3 text-lg tracking-wider font-mono focus:outline-none focus:ring-2 focus:ring-ring transition"
+                className="flex-1 w-full min-w-0 rounded-lg border border-input bg-background px-4 py-3 text-base sm:text-lg tracking-wider font-mono focus:outline-none focus:ring-2 focus:ring-ring transition"
                 maxLength={20}
                 autoComplete="off"
               />
               <button
                 type="submit"
                 disabled={!tin.trim()}
-                className="rounded-lg bg-[image:var(--gradient-hero)] px-6 py-3 font-semibold text-primary-foreground shadow-[var(--shadow-elegant)] hover:opacity-95 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                className="rounded-lg bg-[image:var(--gradient-hero)] px-6 py-3 font-semibold text-primary-foreground shadow-[var(--shadow-elegant)] hover:opacity-95 disabled:opacity-50 disabled:cursor-not-allowed transition w-full sm:w-auto"
               >
                 Check Status
               </button>
@@ -182,13 +182,13 @@ function Index() {
 
           <div className="mt-6">
             {status === "found" && result && (
-              <div className="rounded-2xl border-2 border-[color:var(--warning)] bg-[color:var(--accent)] p-6 shadow-[var(--shadow-card)] animate-in fade-in slide-in-from-bottom-2 duration-300">
+              <div className="rounded-2xl border-2 border-[color:var(--warning)] bg-[color:var(--accent)] p-4 sm:p-6 shadow-[var(--shadow-card)] animate-in fade-in slide-in-from-bottom-2 duration-300">
                 <div className="flex items-start gap-3">
-                  <div className="h-10 w-10 rounded-full bg-[color:var(--warning)] text-white flex items-center justify-center flex-shrink-0 font-bold">
+                  <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-[color:var(--warning)] text-white flex items-center justify-center flex-shrink-0 font-bold">
                     !
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h2 className="text-xl font-bold text-accent-foreground">
+                    <h2 className="text-lg sm:text-xl font-bold text-accent-foreground">
                       Selected for Audit
                     </h2>
                     <p className="text-sm text-accent-foreground/80 mt-1">
@@ -207,14 +207,14 @@ function Index() {
             )}
 
             {status === "notfound" && (
-              <div className="rounded-2xl border-2 border-[color:var(--success)] bg-card p-6 shadow-[var(--shadow-card)] animate-in fade-in slide-in-from-bottom-2 duration-300">
+              <div className="rounded-2xl border-2 border-[color:var(--success)] bg-card p-4 sm:p-6 shadow-[var(--shadow-card)] animate-in fade-in slide-in-from-bottom-2 duration-300">
                 <div className="flex items-start gap-3">
-                  <div className="h-10 w-10 rounded-full bg-[color:var(--success)] text-white flex items-center justify-center flex-shrink-0 font-bold">
+                  <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-[color:var(--success)] text-white flex items-center justify-center flex-shrink-0 font-bold">
                     ✓
                   </div>
-                  <div>
-                    <h2 className="text-xl font-bold">Not Selected</h2>
-                    <p className="text-sm text-muted-foreground mt-1">
+                  <div className="min-w-0">
+                    <h2 className="text-lg sm:text-xl font-bold">Not Selected</h2>
+                    <p className="text-sm text-muted-foreground mt-1 break-all">
                       TIN <span className="font-mono">{tin}</span> is not in the NBR audit
                       selection list for AY 2023–24.
                     </p>
@@ -224,13 +224,13 @@ function Index() {
             )}
           </div>
 
-          <div className="mt-10 grid sm:grid-cols-3 gap-3">
+          <div className="mt-8 sm:mt-10 grid grid-cols-3 gap-2 sm:gap-3">
             <Stat value={totalRecords} label="Returns selected" />
             <Stat value="49" label="Tax zones" />
             <Stat value="100%" label="Client-side · private" />
           </div>
 
-          <div className="mt-10 rounded-xl border border-border bg-card p-5 text-sm text-muted-foreground leading-relaxed">
+          <div className="mt-8 sm:mt-10 rounded-xl border border-border bg-card p-4 sm:p-5 text-sm text-muted-foreground leading-relaxed">
             <strong className="text-foreground">About this tool.</strong> The National Board of
             Revenue (NBR) selected 72,341 income tax returns for audit in the second phase using
             an automated Risk-Based Audit Criterion for tax year 2023–24. This site lets you
@@ -258,6 +258,7 @@ function Index() {
                   src={nbrPressRelease}
                   alt="NBR Press Release dated 28 April 2026 announcing 72,341 TIN selection for Risk-Based Audit"
                   className="w-full h-auto"
+                  loading="lazy"
                 />
               </div>
             )}
@@ -266,7 +267,7 @@ function Index() {
       </main>
 
       <footer className="border-t border-border bg-card/40">
-        <div className="mx-auto max-w-5xl px-4 py-6 text-center text-sm text-muted-foreground">
+        <div className="mx-auto max-w-5xl px-4 py-5 sm:py-6 text-center text-xs sm:text-sm text-muted-foreground">
           <div>
             Built with <span className="text-[color:var(--warning)]">♥</span> and AI by{" "}
             <a
@@ -276,7 +277,7 @@ function Index() {
               M Asif Rahman
             </a>
           </div>
-          <div className="mt-1 text-xs">
+          <div className="mt-1 text-[11px] sm:text-xs">
             © {new Date().getFullYear()} · Unofficial tool · Data sourced from NBR
           </div>
         </div>
@@ -296,11 +297,11 @@ function Field({ label, value, mono }: { label: string; value: string; mono?: bo
 
 function Stat({ value, label }: { value: string; label: string }) {
   return (
-    <div className="rounded-xl border border-border bg-card p-4 text-center">
-      <div className="text-2xl font-bold bg-[image:var(--gradient-hero)] bg-clip-text text-transparent">
+    <div className="rounded-xl border border-border bg-card p-3 sm:p-4 text-center">
+      <div className="text-lg sm:text-2xl font-bold bg-[image:var(--gradient-hero)] bg-clip-text text-transparent">
         {value}
       </div>
-      <div className="text-xs text-muted-foreground mt-1">{label}</div>
+      <div className="text-[10px] sm:text-xs text-muted-foreground mt-1 leading-tight">{label}</div>
     </div>
   );
 }
