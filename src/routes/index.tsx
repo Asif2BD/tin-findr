@@ -238,10 +238,11 @@ function Index() {
             <div className="mt-4 flex flex-wrap gap-2">
               <button
                 type="button"
-                onClick={() => setShowSource(true)}
+                onClick={() => setShowSource((s) => !s)}
+                aria-expanded={showSource}
                 className="inline-flex items-center gap-2 rounded-lg border border-border bg-background px-3 py-2 text-xs font-medium text-foreground hover:bg-accent transition"
               >
-                📄 View Source Document
+                📄 {showSource ? "Hide" : "View"} Source Document
               </button>
               <a
                 href={nbrPressRelease}
@@ -251,46 +252,18 @@ function Index() {
                 ⬇ Download
               </a>
             </div>
+            {showSource && (
+              <div className="mt-4 overflow-hidden rounded-lg border border-border bg-white animate-in fade-in slide-in-from-top-2 duration-200">
+                <img
+                  src={nbrPressRelease}
+                  alt="NBR Press Release dated 28 April 2026 announcing 72,341 TIN selection for Risk-Based Audit"
+                  className="w-full h-auto"
+                />
+              </div>
+            )}
           </div>
         </section>
       </main>
-
-      {showSource && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 animate-in fade-in duration-200"
-          onClick={() => setShowSource(false)}
-        >
-          <div
-            className="relative max-w-3xl w-full max-h-[90vh] overflow-auto rounded-xl bg-card shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="sticky top-0 flex items-center justify-between gap-3 border-b border-border bg-card/95 backdrop-blur px-4 py-3">
-              <div className="text-sm font-semibold">NBR Press Release · 28 April 2026</div>
-              <div className="flex items-center gap-2">
-                <a
-                  href={nbrPressRelease}
-                  download="NBR-Press-Release-28-April-2026.jpeg"
-                  className="rounded-md border border-border px-3 py-1.5 text-xs font-medium hover:bg-accent transition"
-                >
-                  ⬇ Download
-                </a>
-                <button
-                  type="button"
-                  onClick={() => setShowSource(false)}
-                  className="rounded-md border border-border px-3 py-1.5 text-xs font-medium hover:bg-accent transition"
-                >
-                  ✕ Close
-                </button>
-              </div>
-            </div>
-            <img
-              src={nbrPressRelease}
-              alt="NBR Press Release dated 28 April 2026 announcing 72,341 TIN selection for Risk-Based Audit"
-              className="w-full h-auto bg-white"
-            />
-          </div>
-        </div>
-      )}
 
       <footer className="border-t border-border bg-card/40">
         <div className="mx-auto max-w-5xl px-4 py-6 text-center text-sm text-muted-foreground">
