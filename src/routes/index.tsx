@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import nbrPressRelease from "@/assets/nbr-press-release.jpeg";
 import { analytics } from "@/lib/analytics";
+import { getUmamiCounts } from "@/server/umami.functions";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -53,6 +54,7 @@ function Index() {
   const dbRef = useRef<AuditDB | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [showSource, setShowSource] = useState(false);
+  const [counts, setCounts] = useState<{ visitors: number; tinChecks: number } | null>(null);
 
   useEffect(() => {
     // Warm-load the DB after first paint so first lookup is instant.
@@ -64,6 +66,22 @@ function Index() {
       })
       .finally(() => setDbLoading(false));
     inputRef.current?.focus();
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    getUmamiCounts()
+      .then((c) => {
+        if (!cancelled && !c.error) {
+          setCounts({ visitors: c.visitors, tinChecks: c.tinChecks });
+        }
+      })
+      .catch(() => {
+        // silently ignore — counter is non-critical
+      });
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   async function handleCheck(e: React.FormEvent) {
@@ -123,9 +141,27 @@ function Index() {
 
       <main className="flex-1">
         <section className="mx-auto max-w-3xl px-4 pt-8 sm:pt-12 pb-6 sm:pb-8 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-[11px] sm:text-xs text-muted-foreground mb-4 sm:mb-6">
+          <div className="inline-flex flex-wrap items-center justify-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-[11px] sm:text-xs text-muted-foreground mb-4 sm:mb-6">
             <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--success)] animate-pulse" />
             Official NBR data · {totalRecords} returns
+            {counts && (
+              <>
+                <span className="opacity-40">·</span>
+                <span>
+                  <span className="font-medium text-foreground">
+                    {counts.visitors.toLocaleString()}
+                  </span>{" "}
+                  visits
+                </span>
+                <span className="opacity-40">·</span>
+                <span>
+                  <span className="font-medium text-foreground">
+                    {counts.tinChecks.toLocaleString()}
+                  </span>{" "}
+                  TIN checks
+                </span>
+              </>
+            )}
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight">
             Is your TIN selected for{" "}
