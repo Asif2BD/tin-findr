@@ -4,6 +4,7 @@ import nbrPressRelease from "@/assets/nbr-press-release.jpeg";
 import { analytics } from "@/lib/analytics";
 import { getUmamiCounts } from "@/server/umami.functions";
 import { LanguageToggle, useI18n } from "@/i18n";
+import { FooterGitHubLink } from "@/components/OpenSourceCard";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -411,6 +412,7 @@ function Index() {
           <div className="mt-1 text-[11px] sm:text-xs">
             © {n(new Date().getFullYear())} · {t("footer.unofficial")}
           </div>
+          <FooterGitHubLink />
           <div className="mt-2 text-[11px] sm:text-xs">
             {t("footer.hostedBy")}{" "}
             <a
