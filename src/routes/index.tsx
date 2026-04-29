@@ -291,6 +291,17 @@ function Index() {
           <div className="mt-1 text-[11px] sm:text-xs">
             © {new Date().getFullYear()} · Unofficial tool · Data sourced from NBR
           </div>
+          <div className="mt-2 text-[11px] sm:text-xs">
+            Hosted By{" "}
+            <a
+              href="https://xcloud.host/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-foreground hover:text-primary transition-colors"
+            >
+              xCloud
+            </a>
+          </div>
         </div>
       </footer>
     </div>
