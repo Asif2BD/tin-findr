@@ -1,0 +1,229 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+
+export const Route = createFileRoute("/how-it-works")({
+  component: HowItWorks,
+  head: () => ({
+    meta: [
+      { title: "How it works — NBR Audit Checker" },
+      {
+        name: "description",
+        content:
+          "How the NBR Audit Checker works under the hood: 100% client-side TIN lookup, no data collection, privacy-respecting self-hosted analytics.",
+      },
+      { property: "og:title", content: "How it works — NBR Audit Checker" },
+      {
+        property: "og:description",
+        content:
+          "Your TIN never leaves your browser. Here's exactly how the lookup works and what (little) data we collect.",
+      },
+    ],
+  }),
+});
+
+function HowItWorks() {
+  return (
+    <div className="min-h-screen flex flex-col bg-background text-foreground">
+      <header className="border-b border-border bg-card/60 backdrop-blur-sm">
+        <div className="mx-auto max-w-5xl px-4 py-3 sm:py-4 flex items-center justify-between gap-3">
+          <Link to="/" className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+            <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-lg bg-[image:var(--gradient-hero)] flex items-center justify-center text-primary-foreground font-bold text-base sm:text-lg shadow-[var(--shadow-elegant)] flex-shrink-0">
+              N
+            </div>
+            <div className="min-w-0">
+              <div className="font-semibold leading-tight text-sm sm:text-base truncate">
+                NBR Audit Checker
+              </div>
+              <div className="text-[10px] sm:text-xs text-muted-foreground tracking-wide uppercase truncate">
+                How it works
+              </div>
+            </div>
+          </Link>
+          <Link
+            to="/"
+            className="text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors flex-shrink-0"
+          >
+            ← Back to checker
+          </Link>
+        </div>
+      </header>
+
+      <main className="flex-1">
+        <section className="mx-auto max-w-3xl px-4 pt-8 sm:pt-12 pb-6 text-center">
+          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-[11px] sm:text-xs text-muted-foreground mb-4">
+            <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--success)]" />
+            Privacy-first by design
+          </div>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight">
+            Your TIN never{" "}
+            <span className="bg-[image:var(--gradient-hero)] bg-clip-text text-transparent">
+              leaves your browser
+            </span>
+          </h1>
+          <p className="mt-3 sm:mt-4 text-sm sm:text-base text-muted-foreground max-w-xl mx-auto">
+            Here's exactly what happens — step by step — when you check a TIN on
+            this site, and what (little) data we collect.
+          </p>
+        </section>
+
+        <section className="mx-auto max-w-3xl px-4 pb-10 space-y-4">
+          <Step
+            n={1}
+            title="You open the page"
+            body="Your browser downloads the website code and the audit list (audit.json — about 87,685 TIN records published by NBR). The list is delivered as a static file from our CDN, just like an image or a stylesheet."
+          />
+          <Step
+            n={2}
+            title="You type your TIN"
+            body="The 12-digit TIN you type lives only in your browser's memory. There is no auto-save, no background sync, no 'as-you-type' API call. Nothing is transmitted while you type."
+          />
+          <Step
+            n={3}
+            title="The match runs locally"
+            body="When you press Check Status, JavaScript running on your device looks your TIN up in the list it already downloaded. No request is sent to our server with your TIN — the answer is computed entirely on your machine."
+          />
+          <Step
+            n={4}
+            title="You see the result"
+            body="Found or not found, the result is rendered locally. We never see your TIN, your result, your IP-to-TIN linkage, or anything that could identify you."
+          />
+        </section>
+
+        <section className="mx-auto max-w-3xl px-4 pb-10">
+          <div className="rounded-2xl border border-border bg-card p-5 sm:p-6 shadow-[var(--shadow-card)]">
+            <h2 className="text-lg sm:text-xl font-semibold mb-4">
+              Visual: where your data goes
+            </h2>
+            <pre className="overflow-x-auto rounded-lg bg-muted/50 p-4 text-[11px] sm:text-xs leading-relaxed text-foreground/90 font-mono">
+{`  ┌──────────────────────────────┐
+  │     Your browser (you)       │
+  │                              │
+  │   TIN: 1234•••••5678  ◄──────┼── stays here, always
+  │           │                  │
+  │           ▼                  │
+  │   match against audit.json   │
+  │           │                  │
+  │           ▼                  │
+  │   "Selected" / "Not selected"│
+  └──────────────┬───────────────┘
+                 │
+                 │  (only the static files travel
+                 │   over the network — never your TIN)
+                 ▼
+  ┌──────────────────────────────┐
+  │     Our CDN / web host       │
+  │   serves: HTML, JS, CSS,     │
+  │           audit.json         │
+  └──────────────────────────────┘`}
+            </pre>
+            <p className="mt-3 text-xs text-muted-foreground">
+              You can verify this yourself: open your browser's DevTools →
+              Network tab, type a TIN, and press Check Status. You'll see no
+              request carrying your TIN.
+            </p>
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-3xl px-4 pb-10">
+          <div className="rounded-2xl border border-border bg-card p-5 sm:p-6 shadow-[var(--shadow-card)]">
+            <h2 className="text-lg sm:text-xl font-semibold">
+              About our analytics
+            </h2>
+            <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+              To understand how people use the site (e.g. how many visits, how
+              many lookups happen), we run a small, self-hosted analytics
+              instance — <strong className="text-foreground">not Google
+              Analytics</strong>, not Meta Pixel, no third-party trackers.
+            </p>
+            <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+              <li className="flex gap-2">
+                <span className="text-[color:var(--success)]">✓</span>
+                <span>Hosted by me personally on{" "}
+                  <code className="font-mono text-xs">agent-analytics.asif.dev</code>{" "}
+                  — data never goes to a third party.</span>
+              </li>
+              <li className="flex gap-2">
+                <span className="text-[color:var(--success)]">✓</span>
+                <span>No cookies. No fingerprinting. No cross-site tracking.</span>
+              </li>
+              <li className="flex gap-2">
+                <span className="text-[color:var(--success)]">✓</span>
+                <span>No personal data. We never log your TIN, your name, or
+                  your IP linked to any lookup.</span>
+              </li>
+              <li className="flex gap-2">
+                <span className="text-[color:var(--success)]">✓</span>
+                <span>What we do count: anonymous page views and how many
+                  times the "Check Status" button is pressed (without the TIN).</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-3xl px-4 pb-10">
+          <div className="rounded-2xl border border-border bg-card p-5 sm:p-6 shadow-[var(--shadow-card)]">
+            <h2 className="text-lg sm:text-xl font-semibold">
+              The tech, briefly
+            </h2>
+            <dl className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+              <TechItem label="Frontend" value="React + TanStack Start" />
+              <TechItem label="Hosting" value="Edge CDN (static files)" />
+              <TechItem label="Database" value="Single audit.json file in your browser" />
+              <TechItem label="Analytics" value="Self-hosted, cookieless" />
+              <TechItem label="Source data" value="NBR press release (28 Apr 2026)" />
+              <TechItem label="Backend lookups" value="None — 100% client-side" />
+            </dl>
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-3xl px-4 pb-12 text-center">
+          <Link
+            to="/"
+            className="inline-flex items-center justify-center gap-2 rounded-lg bg-[image:var(--gradient-hero)] px-6 py-3 font-semibold text-primary-foreground shadow-[var(--shadow-elegant)] hover:opacity-95 transition"
+          >
+            ← Back to TIN Checker
+          </Link>
+        </section>
+      </main>
+
+      <footer className="border-t border-border bg-card/40">
+        <div className="mx-auto max-w-5xl px-4 py-5 sm:py-6 text-center text-xs sm:text-sm text-muted-foreground">
+          <div>
+            Built with <span className="text-[color:var(--warning)]">♥</span> and AI by{" "}
+            <a
+              href="https://github.com/asifrahman"
+              className="font-medium text-foreground hover:text-primary transition-colors"
+            >
+              M Asif Rahman
+            </a>
+          </div>
+          <div className="mt-1 text-[11px] sm:text-xs">
+            © {new Date().getFullYear()} · Unofficial tool · Data sourced from NBR
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+function Step({ n, title, body }: { n: number; title: string; body: string }) {
+  return (
+    <div className="rounded-2xl border border-border bg-card p-4 sm:p-5 shadow-[var(--shadow-card)] flex gap-4">
+      <div className="h-9 w-9 rounded-full bg-[image:var(--gradient-hero)] text-primary-foreground font-bold flex items-center justify-center flex-shrink-0 shadow-[var(--shadow-elegant)]">
+        {n}
+      </div>
+      <div className="min-w-0">
+        <h3 className="font-semibold text-base sm:text-lg">{title}</h3>
+        <p className="mt-1 text-sm text-muted-foreground leading-relaxed">{body}</p>
+      </div>
+    </div>
+  );
+}
+
+function TechItem({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-lg bg-card/70 border border-border/60 p-3">
+      <dt className="text-xs uppercase tracking-wide text-muted-foreground">{label}</dt>
+      <dd className="mt-1 font-medium">{value}</dd>
+    </div>
+  );
+}
