@@ -20,7 +20,9 @@ export const getUmamiCounts = createServerFn({ method: "GET" }).handler(
     const startAt = new Date("2024-01-01T00:00:00Z").getTime();
     const endAt = Date.now();
     const base = host.replace(/\/$/, "");
+    // Umami Cloud uses Bearer; self-hosted uses x-umami-api-key. Send both.
     const headers = {
+      Authorization: `Bearer ${apiKey}`,
       "x-umami-api-key": apiKey,
       Accept: "application/json",
     };
