@@ -27,7 +27,8 @@ export const getUmamiCounts = createServerFn({ method: "GET" }).handler(
 
     try {
       const statsUrl = `${base}/api/websites/${websiteId}/stats?startAt=${startAt}&endAt=${endAt}`;
-      const eventsUrl = `${base}/api/websites/${websiteId}/events/series?startAt=${startAt}&endAt=${endAt}&unit=year&timezone=UTC`;
+      // Aggregated event counts grouped by event_name
+      const eventsUrl = `${base}/api/websites/${websiteId}/metrics?startAt=${startAt}&endAt=${endAt}&type=event`;
 
       const [statsRes, eventsRes] = await Promise.all([
         fetch(statsUrl, { headers }),
@@ -41,20 +42,19 @@ export const getUmamiCounts = createServerFn({ method: "GET" }).handler(
         };
         visitors = s.visitors?.value ?? 0;
       } else {
-        console.error("Umami stats error", statsRes.status);
+        console.error("Umami stats error", statsRes.status, await statsRes.text());
       }
 
       let tinChecks = 0;
       if (eventsRes.ok) {
-        const series = (await eventsRes.json()) as Array<{
+        const metrics = (await eventsRes.json()) as Array<{
           x: string;
           y: number;
         }>;
-        const tinSeries = series.find((row) => row.x === "tin_lookup");
-        tinChecks = tinSeries?.y ?? 0;
+        const tinRow = metrics.find((m) => m.x === "tin_lookup");
+        tinChecks = tinRow?.y ?? 0;
       } else {
-        // Fallback: try the events list endpoint shape
-        console.error("Umami events error", eventsRes.status);
+        console.error("Umami events error", eventsRes.status, await eventsRes.text());
       }
 
       return { visitors, tinChecks, error: null };
