@@ -399,31 +399,36 @@ function Index() {
       </main>
 
       <footer className="border-t border-border bg-card/40">
-        <div className="mx-auto max-w-5xl px-4 py-5 sm:py-6 text-center text-xs sm:text-sm text-muted-foreground">
-          <div>
-            {t("footer.builtBy")} <span className="text-[color:var(--warning)]">♥</span> {t("footer.builtBy2")}{" "}
-            <a
-              href="https://github.com/asifrahman"
-              className="font-medium text-foreground hover:text-primary transition-colors"
-            >
-              M Asif Rahman
-            </a>
+        <div className="mx-auto max-w-5xl px-4 py-4 sm:py-5 text-center text-[11px] sm:text-xs text-muted-foreground space-y-1">
+          <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
+            <span>
+              {t("footer.builtBy")} <span className="text-[color:var(--warning)]">♥</span>{" "}
+              {t("footer.builtBy2")}{" "}
+              <a
+                href="https://github.com/asifrahman"
+                className="font-medium text-foreground hover:text-primary transition-colors"
+              >
+                M Asif Rahman
+              </a>
+            </span>
+            <span className="opacity-40">·</span>
+            <FooterGitHubLink />
           </div>
-          <div className="mt-1 text-[11px] sm:text-xs">
-            © {n(new Date().getFullYear())} · {t("footer.unofficial")}
-          </div>
-          <FooterGitHubLink />
-          <div className="mt-2 text-[11px] sm:text-xs">
-            {t("footer.hostedBy")}{" "}
-            <a
-              href="https://xcloud.host/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-medium text-foreground hover:text-primary transition-colors"
-            >
-              xCloud
-            </a>
-            {" "}{t("footer.hostedIn")}
+          <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
+            <span>© {n(new Date().getFullYear())} · {t("footer.unofficial")}</span>
+            <span className="opacity-40">·</span>
+            <span>
+              {t("footer.hostedBy")}{" "}
+              <a
+                href="https://xcloud.host/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-foreground hover:text-primary transition-colors"
+              >
+                xCloud
+              </a>
+              {" "}{t("footer.hostedIn")}
+            </span>
           </div>
         </div>
       </footer>
