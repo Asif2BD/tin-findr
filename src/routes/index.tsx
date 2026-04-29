@@ -12,7 +12,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Instantly check if your TIN is among the 72,341 returns selected for NBR Risk-Based Audit (Assessment Year 2023-24).",
+          "Instantly check if your TIN is among the 87,685 returns selected for NBR Risk-Based Audit (Assessment Year 2023-24).",
       },
       { property: "og:title", content: "NBR Audit Selection 2023-24 — TIN Checker" },
       {

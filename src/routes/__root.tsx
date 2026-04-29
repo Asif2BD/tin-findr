@@ -30,7 +30,7 @@ export const Route = createRootRoute({
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "NBR Audit Selection 2023-24 — TIN Checker" },
-      { name: "description", content: "Check if your TIN is selected for NBR Risk-Based Audit (Assessment Year 2023-24). Instant, offline lookup of 72,341 returns." },
+      { name: "description", content: "Check if your TIN is selected for NBR Risk-Based Audit (Assessment Year 2023-24). Instant, offline lookup across 87,685 returns from both officially published lists." },
       { name: "author", content: "M Asif Rahman" },
       { property: "og:title", content: "NBR Audit Selection 2023-24 — TIN Checker" },
       { property: "og:description", content: "Instantly check if your TIN was selected for NBR audit (AY 2023-24)." },
