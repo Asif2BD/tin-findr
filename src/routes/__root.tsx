@@ -44,6 +44,13 @@ export const Route = createRootRoute({
         href: appCss,
       },
     ],
+    scripts: [
+      {
+        src: "https://agent-analytics.asif.dev/script.js",
+        defer: true,
+        "data-website-id": "dff585f9-cb8c-44a9-84a7-fc45e2eca443",
+      },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
