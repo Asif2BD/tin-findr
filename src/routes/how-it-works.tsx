@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { LanguageToggle, useI18n } from "@/i18n";
+import { FooterGitHubLink, OpenSourceCard } from "@/components/OpenSourceCard";
 
 export const Route = createFileRoute("/how-it-works")({
   component: HowItWorks,
@@ -156,6 +157,10 @@ function HowItWorks() {
           </div>
         </section>
 
+        <section className="mx-auto max-w-3xl px-4 pb-10">
+          <OpenSourceCard />
+        </section>
+
         <section className="mx-auto max-w-3xl px-4 pb-12 text-center">
           <Link
             to="/"
@@ -182,6 +187,7 @@ function HowItWorks() {
           <div className="mt-1 text-[11px] sm:text-xs">
             © {new Date().getFullYear()} · {t("footer.unofficial")}
           </div>
+          <FooterGitHubLink />
         </div>
       </footer>
     </div>
