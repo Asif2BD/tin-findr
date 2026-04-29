@@ -1,34 +1,6 @@
-import { useI18n } from "@/i18n";
 import { analytics } from "@/lib/analytics";
 
 export const REPO_URL = "https://github.com/Asif2BD/tin-findr";
-
-export function OpenSourceCard() {
-  const { t } = useI18n();
-  return (
-    <div className="rounded-2xl border border-border bg-card p-4 sm:p-5 shadow-[var(--shadow-card)] flex flex-col sm:flex-row sm:items-center gap-4">
-      <div className="h-10 w-10 rounded-lg bg-foreground text-background flex items-center justify-center flex-shrink-0">
-        <GitHubIcon className="h-5 w-5" />
-      </div>
-      <div className="flex-1 min-w-0">
-        <h3 className="font-semibold text-base">{t("oss.title")}</h3>
-        <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
-          {t("oss.body")}
-        </p>
-      </div>
-      <a
-        href={REPO_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        onClick={() => analytics.externalLink(REPO_URL)}
-        className="inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-background px-3 py-2 text-xs font-medium text-foreground hover:bg-accent transition flex-shrink-0"
-      >
-        <GitHubIcon className="h-4 w-4" />
-        {t("oss.cta")}
-      </a>
-    </div>
-  );
-}
 
 export function FooterGitHubLink({ className = "" }: { className?: string }) {
   return (
