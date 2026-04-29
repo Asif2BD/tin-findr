@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import nbrPressRelease from "@/assets/nbr-press-release.jpeg";
 import { analytics } from "@/lib/analytics";
 import { getUmamiCounts } from "@/server/umami.functions";
+import { LanguageToggle, useI18n } from "@/i18n";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -47,6 +48,7 @@ function loadDB(): Promise<AuditDB> {
 }
 
 function Index() {
+  const { t, n, lang } = useI18n();
   const [tin, setTin] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "found" | "notfound">("idle");
   const [result, setResult] = useState<AuditResult | null>(null);
@@ -91,9 +93,7 @@ function Index() {
     const q = tin.trim();
     if (!q) return;
     if (q.length !== 12) {
-      setValidationError(
-        `A TIN must be exactly 12 digits. You entered ${q.length} digit${q.length === 1 ? "" : "s"}.`,
-      );
+      setValidationError(t("form.validation.length", { n: q.length }));
       setStatus("idle");
       setResult(null);
       return;
@@ -123,6 +123,7 @@ function Index() {
   }
 
   const totalRecords = "87,685";
+  const totalRecordsNum = 87685;
 
   const maskTin = (t: string): string => {
     if (t.length <= 4) return t;
@@ -141,21 +142,24 @@ function Index() {
               N
             </div>
             <div className="min-w-0">
-              <div className="font-semibold leading-tight text-sm sm:text-base truncate">NBR Audit Checker</div>
+              <div className="font-semibold leading-tight text-sm sm:text-base truncate">{t("header.brand")}</div>
               <div className="text-[10px] sm:text-xs text-muted-foreground tracking-wide uppercase truncate">
-                AY 2023–24 · Risk-Based
+                {t("header.tagline")}
               </div>
             </div>
           </div>
-          <a
-            href="https://nbr.gov.bd"
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => analytics.externalLink("https://nbr.gov.bd")}
-            className="text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors flex-shrink-0"
-          >
-            nbr.gov.bd ↗
-          </a>
+          <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+            <LanguageToggle />
+            <a
+              href="https://nbr.gov.bd"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => analytics.externalLink("https://nbr.gov.bd")}
+              className="hidden sm:inline text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors"
+            >
+              nbr.gov.bd ↗
+            </a>
+          </div>
         </div>
       </header>
 
@@ -163,7 +167,7 @@ function Index() {
         <section className="mx-auto max-w-3xl px-4 pt-8 sm:pt-12 pb-6 sm:pb-8 text-center">
           <div className="inline-flex flex-wrap items-center justify-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-[11px] sm:text-xs text-muted-foreground mb-4 sm:mb-6">
             <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--success)] animate-pulse" />
-            Official NBR data · {totalRecords} returns
+            {t("hero.badge.official")} · {n(totalRecordsNum)} {t("hero.badge.returns")}
             {counts && (counts.visitors > 0 || counts.tinChecks > 0) && (
               <>
                 {counts.visitors > 0 && (
@@ -171,9 +175,9 @@ function Index() {
                     <span className="opacity-40">·</span>
                     <span>
                       <span className="font-medium text-foreground">
-                        {counts.visitors.toLocaleString()}
+                        {n(counts.visitors)}
                       </span>{" "}
-                      visits
+                      {t("hero.badge.visits")}
                     </span>
                   </>
                 )}
@@ -182,9 +186,9 @@ function Index() {
                     <span className="opacity-40">·</span>
                     <span>
                       <span className="font-medium text-foreground">
-                        {counts.tinChecks.toLocaleString()}
+                        {n(counts.tinChecks)}
                       </span>{" "}
-                      TIN checks
+                      {t("hero.badge.tinChecks")}
                     </span>
                   </>
                 )}
@@ -192,14 +196,13 @@ function Index() {
             )}
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight">
-            Is your TIN selected for{" "}
+            {t("hero.title.a")}{" "}
             <span className="bg-[image:var(--gradient-hero)] bg-clip-text text-transparent">
-              NBR Audit?
+              {t("hero.title.b")}
             </span>
           </h1>
           <p className="mt-3 sm:mt-4 text-sm sm:text-base text-muted-foreground max-w-xl mx-auto px-2">
-            Instantly check the official Risk-Based Audit Selection list for Assessment Year
-            2023–24. Runs entirely in your browser — no data leaves your device.
+            {t("hero.subtitle")}
           </p>
         </section>
 
@@ -209,7 +212,7 @@ function Index() {
             className="rounded-2xl border border-border bg-card p-4 sm:p-6 shadow-[var(--shadow-card)]"
           >
             <label htmlFor="tin" className="block text-sm font-medium mb-2">
-              Taxpayer Identification Number (TIN)
+              {t("form.label")}
             </label>
             <div className="flex flex-col sm:flex-row gap-3">
               <input
@@ -218,7 +221,7 @@ function Index() {
                 type="text"
                 inputMode="numeric"
                 pattern="[0-9]*"
-                placeholder="e.g. 123456789012"
+                placeholder={t("form.placeholder")}
                 value={tin}
                 onChange={(e) => {
                   setTin(e.target.value.replace(/\D/g, "").slice(0, 12));
@@ -233,7 +236,7 @@ function Index() {
                 disabled={!tin.trim() || tin.length !== 12}
                 className="rounded-lg bg-[image:var(--gradient-hero)] px-6 py-3 font-semibold text-primary-foreground shadow-[var(--shadow-elegant)] hover:opacity-95 disabled:opacity-50 disabled:cursor-not-allowed transition w-full sm:w-auto"
               >
-                Check Status
+                {t("form.button")}
               </button>
             </div>
             {validationError && (
@@ -243,20 +246,20 @@ function Index() {
             )}
             {!validationError && tin.length > 0 && tin.length < 12 && (
               <div className="mt-3 text-xs text-muted-foreground">
-                {12 - tin.length} more digit{12 - tin.length === 1 ? "" : "s"} to go
+                {t("form.hint.remaining", { n: 12 - tin.length })}
               </div>
             )}
             <div className="mt-3 text-xs text-muted-foreground flex items-center gap-2">
               {dbLoading && !dbReady && (
                 <>
                   <span className="h-2 w-2 rounded-full bg-[color:var(--warning)] animate-pulse" />
-                  Loading database…
+                  {t("form.db.loading")}
                 </>
               )}
               {dbReady && (
                 <>
                   <span className="h-2 w-2 rounded-full bg-[color:var(--success)]" />
-                  Database ready · lookups are instant
+                  {t("form.db.ready")}
                 </>
               )}
             </div>
@@ -264,15 +267,10 @@ function Index() {
 
           <div className="mt-6">
           <div className="mb-4 rounded-xl border border-border bg-muted/40 p-3 sm:p-4 text-xs sm:text-[13px] text-muted-foreground leading-relaxed">
-            <strong className="text-foreground">Disclaimer:</strong> This is a
-            community-built tool using publicly available NBR data. We are not
-            affiliated with the National Board of Revenue or any government
-            body, and we make no guarantee about the accuracy or completeness
-            of the lists. Regardless of what this tool shows,{" "}
-            <strong className="text-foreground">
-              always verify your audit status directly with NBR
-            </strong>{" "}
-            or your tax circle before taking any action.
+            <strong className="text-foreground">{t("disclaimer.title")}</strong>{" "}
+            {t("disclaimer.body")}{" "}
+            <strong className="text-foreground">{t("disclaimer.cta")}</strong>{" "}
+            {t("disclaimer.tail")}
           </div>
             {status === "found" && result && (
               <div className="rounded-2xl border-2 border-[color:var(--warning)] bg-[color:var(--accent)] p-4 sm:p-6 shadow-[var(--shadow-card)] animate-in fade-in slide-in-from-bottom-2 duration-300">
@@ -282,25 +280,25 @@ function Index() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <h2 className="text-lg sm:text-xl font-bold text-accent-foreground">
-                      Selected for Audit
+                      {t("result.found.title")}
                     </h2>
                     <p className="text-sm text-accent-foreground/80 mt-1">
-                      This TIN appears on the NBR Risk-Based Audit list.
+                      {t("result.found.body")}
                     </p>
                     <div className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-border bg-card/70 px-2.5 py-1 text-[11px] font-medium text-foreground">
                       <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--warning)]" />
                       {result.source === 2
-                        ? "Found in: Both published lists"
+                        ? t("result.found.source.both")
                         : result.source === 1
-                          ? "Source: Audit Selection List 2 (8-zone PDF)"
-                          : "Source: Audit Selection List 1 (49-zone master)"}
+                          ? t("result.found.source.list2")
+                          : t("result.found.source.list1")}
                     </div>
                     <dl className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-                      <Field label="TIN" value={maskTin(result.tin)} mono />
-                      <Field label="Assessment Year" value={result.assessment_year} />
-                      <Field label="Zone" value={result.zone} />
-                      <Field label="Circle" value={result.circle} />
-                      <Field label="Submission Type" value={result.submission_type} />
+                      <Field label={t("result.field.tin")} value={maskTin(result.tin)} mono />
+                      <Field label={t("result.field.year")} value={result.assessment_year} />
+                      <Field label={t("result.field.zone")} value={result.zone} />
+                      <Field label={t("result.field.circle")} value={result.circle} />
+                      <Field label={t("result.field.submission")} value={result.submission_type} />
                     </dl>
                   </div>
                 </div>
@@ -314,10 +312,9 @@ function Index() {
                     ✓
                   </div>
                   <div className="min-w-0">
-                    <h2 className="text-lg sm:text-xl font-bold">Not Selected</h2>
+                    <h2 className="text-lg sm:text-xl font-bold">{t("result.notfound.title")}</h2>
                     <p className="text-sm text-muted-foreground mt-1 break-all">
-                      TIN <span className="font-mono">{maskTin(tin)}</span> is not in the NBR
-                      audit selection list for AY 2023–24.
+                      {t("result.notfound.body", { tin: maskTin(tin) })}
                     </p>
                   </div>
                 </div>
@@ -326,33 +323,43 @@ function Index() {
           </div>
 
           <div className="mt-8 sm:mt-10 grid grid-cols-3 gap-2 sm:gap-3">
-            <Stat value={totalRecords} label="Returns selected" />
-            <Stat value="2" label="Official lists merged" />
-            <Stat value="100%" label="Client-side · private" />
+            <Stat value={n(totalRecordsNum)} label={t("stat.returns")} />
+            <Stat value={n(2)} label={t("stat.lists")} />
+            <Stat value={lang === "bn" ? "১০০%" : "100%"} label={t("stat.client")} />
           </div>
 
-          <div className="mt-6 rounded-xl border border-border bg-card p-4 sm:p-5 text-sm text-muted-foreground leading-relaxed flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-            <div>
-              <strong className="text-foreground">Curious how this works?</strong>{" "}
-              See exactly what happens when you check a TIN, what we do
-              <span className="whitespace-nowrap"> (and don't)</span> store, and the privacy-respecting analytics we use.
+          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="rounded-xl border border-border bg-card p-4 sm:p-5 text-sm text-muted-foreground leading-relaxed flex flex-col gap-3">
+              <div>
+                <strong className="text-foreground">{t("how.cta.title")}</strong>{" "}
+                {t("how.cta.body")}
+              </div>
+              <Link
+                to="/how-it-works"
+                className="inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-background px-3 py-2 text-xs font-medium text-foreground hover:bg-accent transition self-start"
+              >
+                {t("how.cta.link")}
+              </Link>
             </div>
-            <Link
-              to="/how-it-works"
-              className="inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-background px-3 py-2 text-xs font-medium text-foreground hover:bg-accent transition flex-shrink-0"
-            >
-              How this site works →
-            </Link>
+            <div className="rounded-xl border border-border bg-card p-4 sm:p-5 text-sm text-muted-foreground leading-relaxed flex flex-col gap-3">
+              <div>
+                <strong className="text-foreground">{t("faq.cta.title")}</strong>{" "}
+                {t("faq.cta.body")}
+              </div>
+              <Link
+                to="/faq"
+                className="inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-background px-3 py-2 text-xs font-medium text-foreground hover:bg-accent transition self-start"
+              >
+                {t("faq.cta.link")}
+              </Link>
+            </div>
           </div>
 
           <div className="mt-8 sm:mt-10 rounded-xl border border-border bg-card p-4 sm:p-5 text-sm text-muted-foreground leading-relaxed">
-            <strong className="text-foreground">About this tool.</strong> The National Board of
-            Revenue (NBR) selected income tax returns for audit using an automated Risk-Based
-            Audit Criterion for tax year 2023–24. This tool combines{" "}
-            <strong className="text-foreground">both officially published TIN lists</strong>{" "}
-            (72,196 from the 49-zone master list and 15,489 from the 8-zone supplementary list)
-            into a single instant search — {totalRecords} returns in total. Source: NBR press
-            release, 28 April 2026.
+            <strong className="text-foreground">{t("about.title")}</strong>{" "}
+            {t("about.body.a")}{" "}
+            <strong className="text-foreground">{t("about.body.b")}</strong>{" "}
+            {t("about.body.c")} {n(totalRecordsNum)} {t("about.body.d")}
             <div className="mt-4 flex flex-wrap gap-2">
               <button
                 type="button"
@@ -365,7 +372,7 @@ function Index() {
                 aria-expanded={showSource}
                 className="inline-flex items-center gap-2 rounded-lg border border-border bg-background px-3 py-2 text-xs font-medium text-foreground hover:bg-accent transition"
               >
-                📄 {showSource ? "Hide" : "View"} Source Document
+                📄 {showSource ? t("about.hideSource") : t("about.viewSource")}
               </button>
               <a
                 href={nbrPressRelease}
@@ -373,7 +380,7 @@ function Index() {
                 onClick={() => analytics.sourceDownloaded()}
                 className="inline-flex items-center gap-2 rounded-lg border border-border bg-background px-3 py-2 text-xs font-medium text-foreground hover:bg-accent transition"
               >
-                ⬇ Download
+                ⬇ {t("about.download")}
               </a>
             </div>
             {showSource && (
@@ -393,7 +400,7 @@ function Index() {
       <footer className="border-t border-border bg-card/40">
         <div className="mx-auto max-w-5xl px-4 py-5 sm:py-6 text-center text-xs sm:text-sm text-muted-foreground">
           <div>
-            Built with <span className="text-[color:var(--warning)]">♥</span> and AI by{" "}
+            {t("footer.builtBy")} <span className="text-[color:var(--warning)]">♥</span> {t("footer.builtBy2")}{" "}
             <a
               href="https://github.com/asifrahman"
               className="font-medium text-foreground hover:text-primary transition-colors"
@@ -402,10 +409,10 @@ function Index() {
             </a>
           </div>
           <div className="mt-1 text-[11px] sm:text-xs">
-            © {new Date().getFullYear()} · Unofficial tool · Data sourced from NBR
+            © {n(new Date().getFullYear())} · {t("footer.unofficial")}
           </div>
           <div className="mt-2 text-[11px] sm:text-xs">
-            Hosted By{" "}
+            {t("footer.hostedBy")}{" "}
             <a
               href="https://xcloud.host/"
               target="_blank"
@@ -414,7 +421,7 @@ function Index() {
             >
               xCloud
             </a>
-            {" "}in Bangladesh
+            {" "}{t("footer.hostedIn")}
           </div>
         </div>
       </footer>
