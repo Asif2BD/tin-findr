@@ -29,12 +29,13 @@ type AuditResult = {
   circle: string;
   submission_type: string;
   assessment_year: string;
+  source: 0 | 1 | 2;
 };
 
 type AuditDB = {
   zones: string[];
   circles: string[];
-  data: Record<string, [number, number, string, string]>;
+  data: Record<string, [number, number, string, string, number?]>;
 };
 
 let dbPromise: Promise<AuditDB> | null = null;
@@ -101,6 +102,7 @@ function Index() {
         circle: db.circles[row[1]],
         submission_type: row[2],
         assessment_year: row[3],
+        source: ((row[4] ?? 0) as 0 | 1 | 2),
       });
       setStatus("found");
       analytics.tinFound(db.zones[row[0]], row[3]);
@@ -110,7 +112,7 @@ function Index() {
     }
   }
 
-  const totalRecords = "72,341";
+  const totalRecords = "87,685";
 
   const maskTin = (t: string): string => {
     if (t.length <= 4) return t;
