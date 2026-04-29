@@ -301,6 +301,7 @@ function Index() {
             >
               xCloud
             </a>
+            {" "}in Bangladesh
           </div>
         </div>
       </footer>
