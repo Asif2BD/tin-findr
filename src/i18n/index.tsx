@@ -113,6 +113,13 @@ const en: Dict = {
   "footer.unofficial": "Unofficial tool · Data sourced from NBR",
   "footer.hostedBy": "Hosted By",
   "footer.hostedIn": "in Bangladesh",
+  "footer.openSource": "Open source on GitHub",
+
+  // Open source callout (shared)
+  "oss.title": "100% open source",
+  "oss.body":
+    "This entire project — the website, the data pipeline, the analytics setup, every line of code — is public on GitHub. You can read it, audit it, fork it, or open an issue.",
+  "oss.cta": "View on GitHub →",
 
   // how-it-works page
   "how.tagline": "How it works",
@@ -297,6 +304,13 @@ const bn: Dict = {
   "footer.unofficial": "অনানুষ্ঠানিক টুল · ডেটা NBR থেকে সংগৃহীত",
   "footer.hostedBy": "হোস্ট করেছে",
   "footer.hostedIn": "বাংলাদেশে",
+  "footer.openSource": "GitHub-এ ওপেন সোর্স",
+
+  // Open source callout (shared)
+  "oss.title": "১০০% ওপেন সোর্স",
+  "oss.body":
+    "এই পুরো প্রকল্প — ওয়েবসাইট, ডেটা পাইপলাইন, অ্যানালিটিকস সেটআপ, প্রতিটি লাইন কোড — GitHub-এ উন্মুক্ত। আপনি এটি পড়তে, পর্যালোচনা করতে, ফর্ক করতে, বা ইস্যু খুলতে পারেন।",
+  "oss.cta": "GitHub-এ দেখুন →",
 
   // how-it-works page
   "how.tagline": "কীভাবে কাজ করে",
