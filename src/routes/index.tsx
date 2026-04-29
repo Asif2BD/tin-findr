@@ -154,22 +154,30 @@ function Index() {
           <div className="inline-flex flex-wrap items-center justify-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-[11px] sm:text-xs text-muted-foreground mb-4 sm:mb-6">
             <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--success)] animate-pulse" />
             Official NBR data · {totalRecords} returns
-            {counts && (
+            {counts && (counts.visitors > 0 || counts.tinChecks > 0) && (
               <>
-                <span className="opacity-40">·</span>
-                <span>
-                  <span className="font-medium text-foreground">
-                    {counts.visitors.toLocaleString()}
-                  </span>{" "}
-                  visits
-                </span>
-                <span className="opacity-40">·</span>
-                <span>
-                  <span className="font-medium text-foreground">
-                    {counts.tinChecks.toLocaleString()}
-                  </span>{" "}
-                  TIN checks
-                </span>
+                {counts.visitors > 0 && (
+                  <>
+                    <span className="opacity-40">·</span>
+                    <span>
+                      <span className="font-medium text-foreground">
+                        {counts.visitors.toLocaleString()}
+                      </span>{" "}
+                      visits
+                    </span>
+                  </>
+                )}
+                {counts.tinChecks > 0 && (
+                  <>
+                    <span className="opacity-40">·</span>
+                    <span>
+                      <span className="font-medium text-foreground">
+                        {counts.tinChecks.toLocaleString()}
+                      </span>{" "}
+                      TIN checks
+                    </span>
+                  </>
+                )}
               </>
             )}
           </div>
