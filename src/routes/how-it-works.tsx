@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { LanguageToggle, useI18n } from "@/i18n";
 
 export const Route = createFileRoute("/how-it-works")({
   component: HowItWorks,
@@ -21,6 +22,7 @@ export const Route = createFileRoute("/how-it-works")({
 });
 
 function HowItWorks() {
+  const { t } = useI18n();
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
       <header className="border-b border-border bg-card/60 backdrop-blur-sm">
@@ -31,19 +33,22 @@ function HowItWorks() {
             </div>
             <div className="min-w-0">
               <div className="font-semibold leading-tight text-sm sm:text-base truncate">
-                NBR Audit Checker
+                {t("header.brand")}
               </div>
               <div className="text-[10px] sm:text-xs text-muted-foreground tracking-wide uppercase truncate">
-                How it works
+                {t("how.tagline")}
               </div>
             </div>
           </Link>
-          <Link
-            to="/"
-            className="text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors flex-shrink-0"
-          >
-            ← Back to checker
-          </Link>
+          <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+            <LanguageToggle />
+            <Link
+              to="/"
+              className="hidden sm:inline text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors"
+            >
+              {t("how.back")}
+            </Link>
+          </div>
         </div>
       </header>
 
@@ -51,47 +56,30 @@ function HowItWorks() {
         <section className="mx-auto max-w-3xl px-4 pt-8 sm:pt-12 pb-6 text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-[11px] sm:text-xs text-muted-foreground mb-4">
             <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--success)]" />
-            Privacy-first by design
+            {t("how.badge")}
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight">
-            Your TIN never{" "}
+            {t("how.title.a")}{" "}
             <span className="bg-[image:var(--gradient-hero)] bg-clip-text text-transparent">
-              leaves your browser
+              {t("how.title.b")}
             </span>
           </h1>
           <p className="mt-3 sm:mt-4 text-sm sm:text-base text-muted-foreground max-w-xl mx-auto">
-            Here's exactly what happens — step by step — when you check a TIN on
-            this site, and what (little) data we collect.
+            {t("how.subtitle")}
           </p>
         </section>
 
         <section className="mx-auto max-w-3xl px-4 pb-10 space-y-4">
-          <Step
-            n={1}
-            title="You open the page"
-            body="Your browser downloads the website code and the audit list (audit.json — about 87,685 TIN records published by NBR). The list is delivered as a static file from our CDN, just like an image or a stylesheet."
-          />
-          <Step
-            n={2}
-            title="You type your TIN"
-            body="The 12-digit TIN you type lives only in your browser's memory. There is no auto-save, no background sync, no 'as-you-type' API call. Nothing is transmitted while you type."
-          />
-          <Step
-            n={3}
-            title="The match runs locally"
-            body="When you press Check Status, JavaScript running on your device looks your TIN up in the list it already downloaded. No request is sent to our server with your TIN — the answer is computed entirely on your machine."
-          />
-          <Step
-            n={4}
-            title="You see the result"
-            body="Found or not found, the result is rendered locally. We never see your TIN, your result, your IP-to-TIN linkage, or anything that could identify you."
-          />
+          <Step n={1} title={t("how.step1.title")} body={t("how.step1.body")} />
+          <Step n={2} title={t("how.step2.title")} body={t("how.step2.body")} />
+          <Step n={3} title={t("how.step3.title")} body={t("how.step3.body")} />
+          <Step n={4} title={t("how.step4.title")} body={t("how.step4.body")} />
         </section>
 
         <section className="mx-auto max-w-3xl px-4 pb-10">
           <div className="rounded-2xl border border-border bg-card p-5 sm:p-6 shadow-[var(--shadow-card)]">
             <h2 className="text-lg sm:text-xl font-semibold mb-4">
-              Visual: where your data goes
+              {t("how.flow.title")}
             </h2>
             <pre className="overflow-x-auto rounded-lg bg-muted/50 p-4 text-[11px] sm:text-xs leading-relaxed text-foreground/90 font-mono">
 {`  ┌──────────────────────────────┐
@@ -116,9 +104,7 @@ function HowItWorks() {
   └──────────────────────────────┘`}
             </pre>
             <p className="mt-3 text-xs text-muted-foreground">
-              You can verify this yourself: open your browser's DevTools →
-              Network tab, type a TIN, and press Check Status. You'll see no
-              request carrying your TIN.
+              {t("how.flow.note")}
             </p>
           </div>
         </section>
@@ -126,34 +112,29 @@ function HowItWorks() {
         <section className="mx-auto max-w-3xl px-4 pb-10">
           <div className="rounded-2xl border border-border bg-card p-5 sm:p-6 shadow-[var(--shadow-card)]">
             <h2 className="text-lg sm:text-xl font-semibold">
-              About our analytics
+              {t("how.analytics.title")}
             </h2>
             <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-              To understand how people use the site (e.g. how many visits, how
-              many lookups happen), we run a small, self-hosted analytics
-              instance — <strong className="text-foreground">not Google
-              Analytics</strong>, not Meta Pixel, no third-party trackers.
+              {t("how.analytics.body")}{" "}
+              <strong className="text-foreground">{t("how.analytics.notGA")}</strong>
+              {t("how.analytics.notGA2")}
             </p>
             <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
               <li className="flex gap-2">
                 <span className="text-[color:var(--success)]">✓</span>
-                <span>Hosted by me personally on{" "}
-                  <code className="font-mono text-xs">agent-analytics.asif.dev</code>{" "}
-                  — data never goes to a third party.</span>
+                <span>{t("how.analytics.b1")}</span>
               </li>
               <li className="flex gap-2">
                 <span className="text-[color:var(--success)]">✓</span>
-                <span>No cookies. No fingerprinting. No cross-site tracking.</span>
+                <span>{t("how.analytics.b2")}</span>
               </li>
               <li className="flex gap-2">
                 <span className="text-[color:var(--success)]">✓</span>
-                <span>No personal data. We never log your TIN, your name, or
-                  your IP linked to any lookup.</span>
+                <span>{t("how.analytics.b3")}</span>
               </li>
               <li className="flex gap-2">
                 <span className="text-[color:var(--success)]">✓</span>
-                <span>What we do count: anonymous page views and how many
-                  times the "Check Status" button is pressed (without the TIN).</span>
+                <span>{t("how.analytics.b4")}</span>
               </li>
             </ul>
           </div>
@@ -162,15 +143,15 @@ function HowItWorks() {
         <section className="mx-auto max-w-3xl px-4 pb-10">
           <div className="rounded-2xl border border-border bg-card p-5 sm:p-6 shadow-[var(--shadow-card)]">
             <h2 className="text-lg sm:text-xl font-semibold">
-              The tech, briefly
+              {t("how.tech.title")}
             </h2>
             <dl className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-              <TechItem label="Frontend" value="React + TanStack Start" />
-              <TechItem label="Hosting" value="Edge CDN (static files)" />
-              <TechItem label="Database" value="Single audit.json file in your browser" />
-              <TechItem label="Analytics" value="Self-hosted, cookieless" />
-              <TechItem label="Source data" value="NBR press release (28 Apr 2026)" />
-              <TechItem label="Backend lookups" value="None — 100% client-side" />
+              <TechItem label={t("how.tech.frontend")} value={t("how.tech.frontend.v")} />
+              <TechItem label={t("how.tech.hosting")} value={t("how.tech.hosting.v")} />
+              <TechItem label={t("how.tech.db")} value={t("how.tech.db.v")} />
+              <TechItem label={t("how.tech.analytics")} value={t("how.tech.analytics.v")} />
+              <TechItem label={t("how.tech.source")} value={t("how.tech.source.v")} />
+              <TechItem label={t("how.tech.backend")} value={t("how.tech.backend.v")} />
             </dl>
           </div>
         </section>
@@ -180,7 +161,7 @@ function HowItWorks() {
             to="/"
             className="inline-flex items-center justify-center gap-2 rounded-lg bg-[image:var(--gradient-hero)] px-6 py-3 font-semibold text-primary-foreground shadow-[var(--shadow-elegant)] hover:opacity-95 transition"
           >
-            ← Back to TIN Checker
+            {t("how.backCta")}
           </Link>
         </section>
       </main>
@@ -188,7 +169,9 @@ function HowItWorks() {
       <footer className="border-t border-border bg-card/40">
         <div className="mx-auto max-w-5xl px-4 py-5 sm:py-6 text-center text-xs sm:text-sm text-muted-foreground">
           <div>
-            Built with <span className="text-[color:var(--warning)]">♥</span> and AI by{" "}
+            {t("footer.builtBy")}{" "}
+            <span className="text-[color:var(--warning)]">♥</span>{" "}
+            {t("footer.builtBy2")}{" "}
             <a
               href="https://github.com/asifrahman"
               className="font-medium text-foreground hover:text-primary transition-colors"
@@ -197,7 +180,7 @@ function HowItWorks() {
             </a>
           </div>
           <div className="mt-1 text-[11px] sm:text-xs">
-            © {new Date().getFullYear()} · Unofficial tool · Data sourced from NBR
+            © {new Date().getFullYear()} · {t("footer.unofficial")}
           </div>
         </div>
       </footer>
