@@ -112,6 +112,14 @@ function Index() {
 
   const totalRecords = "72,341";
 
+  const maskTin = (t: string): string => {
+    if (t.length <= 4) return t;
+    const first = t.slice(0, 2);
+    const last = t.slice(-2);
+    const middle = "•".repeat(Math.max(t.length - 4, 4));
+    return `${first}${middle}${last}`;
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
       <header className="border-b border-border bg-card/60 backdrop-blur-sm">
@@ -236,7 +244,7 @@ function Index() {
                       This TIN appears on the NBR Risk-Based Audit list.
                     </p>
                     <dl className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-                      <Field label="TIN" value={result.tin} mono />
+                      <Field label="TIN" value={maskTin(result.tin)} mono />
                       <Field label="Assessment Year" value={result.assessment_year} />
                       <Field label="Zone" value={result.zone} />
                       <Field label="Circle" value={result.circle} />
@@ -256,8 +264,8 @@ function Index() {
                   <div className="min-w-0">
                     <h2 className="text-lg sm:text-xl font-bold">Not Selected</h2>
                     <p className="text-sm text-muted-foreground mt-1 break-all">
-                      TIN <span className="font-mono">{tin}</span> is not in the NBR audit
-                      selection list for AY 2023–24.
+                      TIN <span className="font-mono">{maskTin(tin)}</span> is not in the NBR
+                      audit selection list for AY 2023–24.
                     </p>
                   </div>
                 </div>
