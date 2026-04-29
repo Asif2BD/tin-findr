@@ -245,6 +245,14 @@ function Index() {
                     <p className="text-sm text-accent-foreground/80 mt-1">
                       This TIN appears on the NBR Risk-Based Audit list.
                     </p>
+                    <div className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-border bg-card/70 px-2.5 py-1 text-[11px] font-medium text-foreground">
+                      <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--warning)]" />
+                      {result.source === 2
+                        ? "Found in: Both published lists"
+                        : result.source === 1
+                          ? "Source: Audit Selection List 2 (8-zone PDF)"
+                          : "Source: Audit Selection List 1 (49-zone master)"}
+                    </div>
                     <dl className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
                       <Field label="TIN" value={maskTin(result.tin)} mono />
                       <Field label="Assessment Year" value={result.assessment_year} />
@@ -277,15 +285,18 @@ function Index() {
 
           <div className="mt-8 sm:mt-10 grid grid-cols-3 gap-2 sm:gap-3">
             <Stat value={totalRecords} label="Returns selected" />
-            <Stat value="49" label="Tax zones" />
+            <Stat value="2" label="Official lists merged" />
             <Stat value="100%" label="Client-side · private" />
           </div>
 
           <div className="mt-8 sm:mt-10 rounded-xl border border-border bg-card p-4 sm:p-5 text-sm text-muted-foreground leading-relaxed">
             <strong className="text-foreground">About this tool.</strong> The National Board of
-            Revenue (NBR) selected 72,341 income tax returns for audit in the second phase using
-            an automated Risk-Based Audit Criterion for tax year 2023–24. This site lets you
-            search the published TIN list instantly. Source: NBR press release, 28 April 2026.
+            Revenue (NBR) selected income tax returns for audit using an automated Risk-Based
+            Audit Criterion for tax year 2023–24. This tool combines{" "}
+            <strong className="text-foreground">both officially published TIN lists</strong>{" "}
+            (72,196 from the 49-zone master list and 15,489 from the 8-zone supplementary list)
+            into a single instant search — {totalRecords} returns in total. Source: NBR press
+            release, 28 April 2026.
             <div className="mt-4 flex flex-wrap gap-2">
               <button
                 type="button"
