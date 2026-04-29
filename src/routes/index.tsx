@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import nbrPressRelease from "@/assets/nbr-press-release.jpeg";
 import { analytics } from "@/lib/analytics";
@@ -56,6 +56,7 @@ function Index() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [showSource, setShowSource] = useState(false);
   const [counts, setCounts] = useState<{ visitors: number; tinChecks: number } | null>(null);
+  const [validationError, setValidationError] = useState<string | null>(null);
 
   useEffect(() => {
     // Warm-load the DB after first paint so first lookup is instant.
@@ -89,6 +90,15 @@ function Index() {
     e.preventDefault();
     const q = tin.trim();
     if (!q) return;
+    if (q.length !== 12) {
+      setValidationError(
+        `A TIN must be exactly 12 digits. You entered ${q.length} digit${q.length === 1 ? "" : "s"}.`,
+      );
+      setStatus("idle");
+      setResult(null);
+      return;
+    }
+    setValidationError(null);
     setStatus("loading");
     setResult(null);
     analytics.tinLookup(q);
@@ -210,19 +220,32 @@ function Index() {
                 pattern="[0-9]*"
                 placeholder="e.g. 123456789012"
                 value={tin}
-                onChange={(e) => setTin(e.target.value.replace(/\D/g, ""))}
+                onChange={(e) => {
+                  setTin(e.target.value.replace(/\D/g, "").slice(0, 12));
+                  if (validationError) setValidationError(null);
+                }}
                 className="flex-1 w-full min-w-0 rounded-lg border border-input bg-background px-4 py-3 text-base sm:text-lg tracking-wider font-mono focus:outline-none focus:ring-2 focus:ring-ring transition"
-                maxLength={20}
+                maxLength={12}
                 autoComplete="off"
               />
               <button
                 type="submit"
-                disabled={!tin.trim()}
+                disabled={!tin.trim() || tin.length !== 12}
                 className="rounded-lg bg-[image:var(--gradient-hero)] px-6 py-3 font-semibold text-primary-foreground shadow-[var(--shadow-elegant)] hover:opacity-95 disabled:opacity-50 disabled:cursor-not-allowed transition w-full sm:w-auto"
               >
                 Check Status
               </button>
             </div>
+            {validationError && (
+              <div className="mt-3 rounded-lg border border-destructive/40 bg-destructive/10 px-3 py-2 text-xs text-destructive">
+                {validationError}
+              </div>
+            )}
+            {!validationError && tin.length > 0 && tin.length < 12 && (
+              <div className="mt-3 text-xs text-muted-foreground">
+                {12 - tin.length} more digit{12 - tin.length === 1 ? "" : "s"} to go
+              </div>
+            )}
             <div className="mt-3 text-xs text-muted-foreground flex items-center gap-2">
               {dbLoading && !dbReady && (
                 <>
@@ -306,6 +329,20 @@ function Index() {
             <Stat value={totalRecords} label="Returns selected" />
             <Stat value="2" label="Official lists merged" />
             <Stat value="100%" label="Client-side · private" />
+          </div>
+
+          <div className="mt-6 rounded-xl border border-border bg-card p-4 sm:p-5 text-sm text-muted-foreground leading-relaxed flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div>
+              <strong className="text-foreground">Curious how this works?</strong>{" "}
+              See exactly what happens when you check a TIN, what we do
+              <span className="whitespace-nowrap"> (and don't)</span> store, and the privacy-respecting analytics we use.
+            </div>
+            <Link
+              to="/how-it-works"
+              className="inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-background px-3 py-2 text-xs font-medium text-foreground hover:bg-accent transition flex-shrink-0"
+            >
+              How this site works →
+            </Link>
           </div>
 
           <div className="mt-8 sm:mt-10 rounded-xl border border-border bg-card p-4 sm:p-5 text-sm text-muted-foreground leading-relaxed">
