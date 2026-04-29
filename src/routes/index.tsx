@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import nbrPressRelease from "@/assets/nbr-press-release.jpeg";
+import { analytics } from "@/lib/analytics";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -71,6 +72,7 @@ function Index() {
     if (!q) return;
     setStatus("loading");
     setResult(null);
+    analytics.tinLookup(q);
     const db = dbRef.current ?? (await loadDB());
     dbRef.current = db;
     const row = db.data[q];
@@ -83,8 +85,10 @@ function Index() {
         assessment_year: row[3],
       });
       setStatus("found");
+      analytics.tinFound(db.zones[row[0]], row[3]);
     } else {
       setStatus("notfound");
+      analytics.tinNotFound();
     }
   }
 
@@ -109,6 +113,7 @@ function Index() {
             href="https://nbr.gov.bd"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => analytics.externalLink("https://nbr.gov.bd")}
             className="text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors flex-shrink-0"
           >
             nbr.gov.bd ↗
@@ -238,7 +243,12 @@ function Index() {
             <div className="mt-4 flex flex-wrap gap-2">
               <button
                 type="button"
-                onClick={() => setShowSource((s) => !s)}
+                onClick={() => {
+                  setShowSource((s) => {
+                    if (!s) analytics.sourceViewed();
+                    return !s;
+                  });
+                }}
                 aria-expanded={showSource}
                 className="inline-flex items-center gap-2 rounded-lg border border-border bg-background px-3 py-2 text-xs font-medium text-foreground hover:bg-accent transition"
               >
@@ -247,6 +257,7 @@ function Index() {
               <a
                 href={nbrPressRelease}
                 download="NBR-Press-Release-28-April-2026.jpeg"
+                onClick={() => analytics.sourceDownloaded()}
                 className="inline-flex items-center gap-2 rounded-lg border border-border bg-background px-3 py-2 text-xs font-medium text-foreground hover:bg-accent transition"
               >
                 ⬇ Download
