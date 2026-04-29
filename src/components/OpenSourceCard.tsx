@@ -30,21 +30,19 @@ export function OpenSourceCard() {
   );
 }
 
-export function FooterGitHubLink() {
-  const { t } = useI18n();
+export function FooterGitHubLink({ className = "" }: { className?: string }) {
   return (
-    <div className="mt-2 text-[11px] sm:text-xs">
-      <a
-        href={REPO_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        onClick={() => analytics.externalLink(REPO_URL)}
-        className="inline-flex items-center gap-1.5 font-medium text-foreground hover:text-primary transition-colors"
-      >
-        <GitHubIcon className="h-3.5 w-3.5" />
-        {t("footer.openSource")}
-      </a>
-    </div>
+    <a
+      href={REPO_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={() => analytics.externalLink(REPO_URL)}
+      aria-label="GitHub"
+      className={`inline-flex items-center gap-1 font-medium text-foreground hover:text-primary transition-colors ${className}`}
+    >
+      <GitHubIcon className="h-3.5 w-3.5" />
+      GitHub
+    </a>
   );
 }
 
