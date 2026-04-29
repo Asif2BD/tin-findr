@@ -232,6 +232,17 @@ function Index() {
           </form>
 
           <div className="mt-6">
+          <div className="mb-4 rounded-xl border border-border bg-muted/40 p-3 sm:p-4 text-xs sm:text-[13px] text-muted-foreground leading-relaxed">
+            <strong className="text-foreground">Disclaimer:</strong> This is a
+            community-built tool using publicly available NBR data. We are not
+            affiliated with the National Board of Revenue or any government
+            body, and we make no guarantee about the accuracy or completeness
+            of the lists. Regardless of what this tool shows,{" "}
+            <strong className="text-foreground">
+              always verify your audit status directly with NBR
+            </strong>{" "}
+            or your tax circle before taking any action.
+          </div>
             {status === "found" && result && (
               <div className="rounded-2xl border-2 border-[color:var(--warning)] bg-[color:var(--accent)] p-4 sm:p-6 shadow-[var(--shadow-card)] animate-in fade-in slide-in-from-bottom-2 duration-300">
                 <div className="flex items-start gap-3">
