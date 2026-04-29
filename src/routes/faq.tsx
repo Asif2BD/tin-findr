@@ -135,7 +135,7 @@ function FAQ() {
               {t("footer.builtBy")} <span className="text-[color:var(--warning)]">♥</span>{" "}
               {t("footer.builtBy2")}{" "}
               <a
-                href="https://github.com/asifrahman"
+                href="https://masifrahman.com/"
                 className="font-medium text-foreground hover:text-primary transition-colors"
               >
                 M Asif Rahman
