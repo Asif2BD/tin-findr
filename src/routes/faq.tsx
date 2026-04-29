@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { LanguageToggle, useI18n } from "@/i18n";
-import { FooterGitHubLink, OpenSourceCard } from "@/components/OpenSourceCard";
+import { FooterGitHubLink } from "@/components/OpenSourceCard";
 
 export const Route = createFileRoute("/faq")({
   component: FAQ,
@@ -116,10 +116,6 @@ function FAQ() {
           <p className="pt-4 text-center text-xs text-muted-foreground">
             {t("faq.contact")}
           </p>
-        </section>
-
-        <section className="mx-auto max-w-3xl px-4 pb-10">
-          <OpenSourceCard />
         </section>
 
         <section className="mx-auto max-w-3xl px-4 pb-12 text-center">
