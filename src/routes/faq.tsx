@@ -133,22 +133,22 @@ function FAQ() {
       </main>
 
       <footer className="border-t border-border bg-card/40">
-        <div className="mx-auto max-w-5xl px-4 py-5 sm:py-6 text-center text-xs sm:text-sm text-muted-foreground">
-          <div>
-            {t("footer.builtBy")}{" "}
-            <span className="text-[color:var(--warning)]">♥</span>{" "}
-            {t("footer.builtBy2")}{" "}
-            <a
-              href="https://github.com/asifrahman"
-              className="font-medium text-foreground hover:text-primary transition-colors"
-            >
-              M Asif Rahman
-            </a>
+        <div className="mx-auto max-w-5xl px-4 py-4 sm:py-5 text-center text-[11px] sm:text-xs text-muted-foreground space-y-1">
+          <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
+            <span>
+              {t("footer.builtBy")} <span className="text-[color:var(--warning)]">♥</span>{" "}
+              {t("footer.builtBy2")}{" "}
+              <a
+                href="https://github.com/asifrahman"
+                className="font-medium text-foreground hover:text-primary transition-colors"
+              >
+                M Asif Rahman
+              </a>
+            </span>
+            <span className="opacity-40">·</span>
+            <FooterGitHubLink />
           </div>
-          <div className="mt-1 text-[11px] sm:text-xs">
-            © {new Date().getFullYear()} · {t("footer.unofficial")}
-          </div>
-          <FooterGitHubLink />
+          <div>© {new Date().getFullYear()} · {t("footer.unofficial")}</div>
         </div>
       </footer>
     </div>
