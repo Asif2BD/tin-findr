@@ -10,17 +10,21 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "NBR Audit Selection 2023-24 — TIN Checker" },
+      { title: "Check Your TIN — NBR Risk-Based Audit Selection 2023-24" },
       {
         name: "description",
         content:
           "Instantly check if your TIN is among the 87,685 returns selected for NBR Risk-Based Audit (Assessment Year 2023-24).",
       },
-      { property: "og:title", content: "NBR Audit Selection 2023-24 — TIN Checker" },
+      { property: "og:title", content: "Check Your TIN — NBR Risk-Based Audit Selection 2023-24" },
       {
         property: "og:description",
         content: "Instant offline TIN lookup against the official NBR audit selection list.",
       },
+      { property: "og:url", content: "https://check-tin.asif.dev/" },
+    ],
+    links: [
+      { rel: "canonical", href: "https://check-tin.asif.dev/" },
     ],
   }),
 });
