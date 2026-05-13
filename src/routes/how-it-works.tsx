@@ -18,6 +18,10 @@ export const Route = createFileRoute("/how-it-works")({
         content:
           "Your TIN never leaves your browser. Here's exactly how the lookup works and what (little) data we collect.",
       },
+      { property: "og:url", content: "https://check-tin.asif.dev/how-it-works" },
+    ],
+    links: [
+      { rel: "canonical", href: "https://check-tin.asif.dev/how-it-works" },
     ],
   }),
 });
@@ -71,6 +75,9 @@ function HowItWorks() {
         </section>
 
         <section className="mx-auto max-w-3xl px-4 pb-10 space-y-4">
+          <h2 className="text-xl sm:text-2xl font-semibold tracking-tight">
+            {t("how.steps.heading")}
+          </h2>
           <Step n={1} title={t("how.step1.title")} body={t("how.step1.body")} />
           <Step n={2} title={t("how.step2.title")} body={t("how.step2.body")} />
           <Step n={3} title={t("how.step3.title")} body={t("how.step3.body")} />

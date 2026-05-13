@@ -1,0 +1,16 @@
+# NBR Audit Checker
+
+> Free, privacy-first tool to check whether a 12-digit Bangladesh TIN appears in NBR's officially published Risk-Based Audit Selection list for Assessment Year 2023–24. The lookup runs entirely in the user's browser — TINs are never transmitted.
+
+The site loads a single JSON dataset (87,685 records combining the 49-zone master list and 8-zone supplementary list, sourced from NBR's 28 April 2026 press release) and performs an O(1) hash lookup client-side.
+
+## Pages
+
+- [TIN Checker](/): Enter a 12-digit TIN to check audit selection status.
+- [How it works](/how-it-works): Technical explanation of the client-side lookup, privacy model, and analytics.
+- [FAQ](/faq): Common questions, limitations, data sources, and privacy details.
+
+## Optional
+
+- [Source code on GitHub](https://github.com/Asif2BD/tin-findr)
+- [Author](https://masifrahman.com/)
