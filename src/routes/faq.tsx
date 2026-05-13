@@ -2,6 +2,41 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { LanguageToggle, useI18n } from "@/i18n";
 import { FooterGitHubLink } from "@/components/OpenSourceCard";
 
+const FAQ_QA: { q: string; a: string }[] = [
+  {
+    q: "What does this site actually do?",
+    a: "It checks whether a 12-digit TIN appears in NBR's officially published Risk-Based Audit Selection list for Assessment Year 2023–24. That's it. The lookup runs entirely in your browser.",
+  },
+  {
+    q: 'If my TIN shows "Not Selected", does that mean my TIN is valid?',
+    a: 'No. We have no way to verify whether a 12-digit number is a real TIN issued by NBR. "Not Selected" only means the number isn\'t in the audit list — it does not confirm that the number is a genuine TIN.',
+  },
+  {
+    q: "Can I trust the result for legal or tax decisions?",
+    a: "Treat the result as informational only. This is a community-built tool. Always confirm your audit status with NBR or your tax circle before making any decision.",
+  },
+  {
+    q: "Where does the data come from?",
+    a: "From two officially published NBR sources: the 49-zone master list (72,196 entries) and the 8-zone supplementary list (15,489 entries). Combined: 87,685 returns. Source: NBR press release dated 28 April 2026.",
+  },
+  {
+    q: "Do you store my TIN or send it anywhere?",
+    a: "No. Your TIN never leaves your browser. The entire dataset is downloaded once, and the lookup is performed locally on your device. We do not log, store, or transmit TINs.",
+  },
+  {
+    q: "What about analytics?",
+    a: "We run a self-hosted, cookieless analytics instance to count anonymous page visits and how often the Check Status button is pressed. We never record your TIN, name, or any personal identifier.",
+  },
+  {
+    q: "Why does my TIN appear in the list?",
+    a: "Selection is determined by NBR using an automated Risk-Based Audit Criterion. We do not know — and cannot tell you — why any specific TIN was selected. Contact your tax circle for clarification.",
+  },
+  {
+    q: "Who built this and why?",
+    a: "Built by M Asif Rahman as a community service to make publicly published NBR information easier to search. This tool is unofficial and not affiliated with NBR or any government body.",
+  },
+];
+
 export const Route = createFileRoute("/faq")({
   component: FAQ,
   head: () => ({
@@ -17,6 +52,24 @@ export const Route = createFileRoute("/faq")({
         property: "og:description",
         content:
           "Honest answers about the NBR Audit Checker, including the limits of what this tool can verify.",
+      },
+      { property: "og:url", content: "https://check-tin.asif.dev/faq" },
+    ],
+    links: [
+      { rel: "canonical", href: "https://check-tin.asif.dev/faq" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: FAQ_QA.map(({ q, a }) => ({
+            "@type": "Question",
+            name: q,
+            acceptedAnswer: { "@type": "Answer", text: a },
+          })),
+        }),
       },
     ],
   }),
