@@ -123,6 +123,7 @@ const en: Dict = {
   "how.title.b": "leaves your browser",
   "how.subtitle":
     "Here's exactly what happens — step by step — when you check a TIN on this site, and what (little) data we collect.",
+  "how.steps.heading": "How the verification process works",
   "how.step1.title": "You open the page",
   "how.step1.body":
     "Your browser downloads the website code and the audit list (audit.json — about 87,685 TIN records published by NBR). The list is delivered as a static file from our CDN, just like an image or a stylesheet.",
