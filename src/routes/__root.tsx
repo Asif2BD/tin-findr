@@ -45,6 +45,10 @@ export const Route = createRootRoute({
         rel: "stylesheet",
         href: appCss,
       },
+      // AI / agent discovery
+      { rel: "api-catalog", href: "/.well-known/api-catalog" },
+      { rel: "describedby", href: "/llms.txt", type: "text/plain" },
+      { rel: "alternate", href: "/llms-full.txt", type: "text/plain", title: "LLM-friendly full text" },
     ],
     scripts: [
       {

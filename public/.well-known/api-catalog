@@ -1,0 +1,36 @@
+{
+  "title": "NBR Audit Checker — API Catalog",
+  "description": "Public endpoints exposed by check-tin.asif.dev. This site is primarily a client-side TIN lookup; the only programmatic endpoints are the dataset itself and the SEO/AI discovery files.",
+  "links": [
+    {
+      "href": "/data/audit.json",
+      "rel": "item",
+      "type": "application/json",
+      "title": "NBR Risk-Based Audit Selection dataset (AY 2023-24, 87,685 records)"
+    },
+    {
+      "href": "/sitemap.xml",
+      "rel": "sitemap",
+      "type": "application/xml",
+      "title": "Sitemap"
+    },
+    {
+      "href": "/llms.txt",
+      "rel": "describedby",
+      "type": "text/plain",
+      "title": "LLM-friendly site summary (llmstxt.org)"
+    },
+    {
+      "href": "/llms-full.txt",
+      "rel": "describedby",
+      "type": "text/plain",
+      "title": "Full LLM-friendly site content"
+    },
+    {
+      "href": "/robots.txt",
+      "rel": "related",
+      "type": "text/plain",
+      "title": "Crawler and AI-bot policy"
+    }
+  ]
+}
