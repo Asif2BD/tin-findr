@@ -1,0 +1,54 @@
+# NBR Audit Checker
+
+> Free, privacy-first tool to check whether a 12-digit Bangladesh TIN appears in NBR's officially published Risk-Based Audit Selection list for Assessment Year 2023–24. The lookup runs entirely in the user's browser — TINs are never transmitted to any server.
+
+Live: https://check-tin.asif.dev
+Source: https://github.com/Asif2BD/tin-findr (MIT-licensed, fully open source)
+Author: M Asif Rahman — https://masifrahman.com/
+
+## What this site does
+
+The National Board of Revenue (NBR) of Bangladesh publishes, by press release, a list of taxpayers whose returns for Assessment Year 2023–24 have been selected for audit under its Risk-Based Audit Selection criteria. The official list is distributed as PDFs across two press releases (a 49-zone master list with 72,196 entries, and an 8-zone supplementary list with 15,489 entries) for a combined 87,685 records.
+
+This site loads that combined dataset once (a ~4.2 MB JSON file at /data/audit.json) and lets a visitor check, in their browser, whether a specific 12-digit TIN appears in the list. The lookup is an O(1) hash lookup against an in-memory object — the TIN never leaves the device.
+
+## Privacy model
+
+- TINs are not transmitted to any server, ever. No fetch, no analytics event, no log line contains a TIN.
+- Anonymous, cookieless analytics (self-hosted Umami) record only page views and button-press counts. Event payloads include `tin_length` (always 12 for successful checks) but never the digits themselves.
+- The dataset is fetched once per session as a static asset from Cloudflare's edge.
+- No accounts, no cookies, no third-party trackers.
+
+## Data source and limitations
+
+- Source: NBR press release dated 28 April 2026 plus the supplementary list published shortly after.
+- The headline figure in the original press release is 72,341 selected returns; the published lists together total 87,685 records. The site uses the larger combined figure.
+- A "Not Selected" result only means the TIN is not in the published audit list. It does NOT confirm the number is a valid, NBR-issued TIN. The site cannot verify TIN authenticity — only NBR can.
+- Selection criteria are determined by NBR's automated risk model; this site does not and cannot explain why a specific TIN was selected.
+- Results are informational. Always confirm audit status with NBR or your tax circle before acting on them.
+
+## Pages
+
+- [TIN Checker (/)](https://check-tin.asif.dev/): The main lookup. Enter a 12-digit TIN, see whether it appears in the audit list, and view the zone and circle if it does.
+- [How it works (/how-it-works)](https://check-tin.asif.dev/how-it-works): Technical explainer covering the client-side lookup, dataset shape, privacy model, and analytics approach.
+- [FAQ (/faq)](https://check-tin.asif.dev/faq): What the tool can and cannot verify, data sources, privacy, and limitations.
+
+## Discovery endpoints
+
+- /robots.txt — crawler and AI-bot policy (all major AI crawlers explicitly allowed)
+- /sitemap.xml — XML sitemap of public pages
+- /llms.txt — short llmstxt.org-format site summary
+- /llms-full.txt — this file, the long-form summary
+- /.well-known/api-catalog — RFC 9727 catalog of publicly addressable resources
+- /data/audit.json — the full combined dataset (JSON, ~4.2 MB)
+
+## Tech stack
+
+- TanStack Start (React 19, file-based routing) on Cloudflare Workers
+- Tailwind CSS v4 with shadcn/ui primitives
+- Bilingual (English / Bangla, including Bangla numerals)
+- Deployed via Lovable (https://lovable.dev) on every push to `main`
+
+## Affiliation
+
+This is an independent, unofficial community project. It is not affiliated with, endorsed by, or operated by NBR or any government body. The underlying data is reproduced from NBR's own publicly distributed press releases.
