@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import nbrPressRelease from "@/assets/nbr-press-release.jpeg";
 import { analytics } from "@/lib/analytics";
-import { getUmamiCounts } from "@/server/umami.functions";
+import { getUmamiCounts } from "@/lib/umami.functions";
 import { LanguageToggle, useI18n } from "@/i18n";
 import { FooterGitHubLink } from "@/components/OpenSourceCard";
 
