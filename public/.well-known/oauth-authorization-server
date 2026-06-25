@@ -1,0 +1,1 @@
+{"issuer":"https://check-tin.asif.dev","authorization_endpoint":"https://check-tin.asif.dev/oauth/authorize","token_endpoint":"https://check-tin.asif.dev/oauth/token","response_types_supported":["code"]}
