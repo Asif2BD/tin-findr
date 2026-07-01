@@ -4,7 +4,7 @@
 
 ## What this is
 
-The site loads a single JSON dataset of 87,685 records (the 49-zone master list plus the 8-zone supplementary list, both sourced from NBR's 28 April 2026 press release) and performs an O(1) hash lookup client-side. If a TIN is in the list, the tool returns the relevant Zone, Circle, submission type, and assessment year.
+The site loads a single JSON dataset of 92,699 records (the 49-zone master list, the 8-zone supplementary list, and the Audit Selection V3 2023-24 list — all sourced from NBR) and performs an O(1) hash lookup client-side. If a TIN is in the list, the tool returns the relevant Zone, Circle, submission type, and assessment year.
 
 ## Privacy model
 
