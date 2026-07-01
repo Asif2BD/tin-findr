@@ -14,7 +14,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Instantly check if your TIN is among the 87,685 returns selected for NBR Risk-Based Audit (Assessment Year 2023-24).",
+          "Instantly check if your TIN is among the 92,699 returns selected for NBR Risk-Based Audit (Assessment Year 2023-24).",
       },
       { property: "og:title", content: "Check Your TIN — NBR Risk-Based Audit Selection 2023-24" },
       {
@@ -127,8 +127,8 @@ function Index() {
     }
   }
 
-  const totalRecords = "87,685";
-  const totalRecordsNum = 87685;
+  const totalRecords = "92,699";
+  const totalRecordsNum = 92699;
 
   const maskTin = (t: string): string => {
     if (t.length <= 4) return t;
@@ -292,11 +292,19 @@ function Index() {
                     </p>
                     <div className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-border bg-card/70 px-2.5 py-1 text-[11px] font-medium text-foreground">
                       <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--warning)]" />
-                      {result.source === 2
-                        ? t("result.found.source.both")
-                        : result.source === 1
-                          ? t("result.found.source.list2")
-                          : t("result.found.source.list1")}
+                      {result.source === 6
+                        ? t("result.found.source.all")
+                        : result.source === 5
+                          ? t("result.found.source.list2_3")
+                          : result.source === 4
+                            ? t("result.found.source.list1_3")
+                            : result.source === 3
+                              ? t("result.found.source.list3")
+                              : result.source === 2
+                                ? t("result.found.source.both")
+                                : result.source === 1
+                                  ? t("result.found.source.list2")
+                                  : t("result.found.source.list1")}
                     </div>
                     <dl className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
                       <Field label={t("result.field.tin")} value={maskTin(result.tin)} mono />
