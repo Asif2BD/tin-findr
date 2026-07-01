@@ -337,7 +337,7 @@ function Index() {
 
           <div className="mt-8 sm:mt-10 grid grid-cols-3 gap-2 sm:gap-3">
             <Stat value={n(totalRecordsNum)} label={t("stat.returns")} />
-            <Stat value={n(2)} label={t("stat.lists")} />
+            <Stat value={n(3)} label={t("stat.lists")} />
             <Stat value={lang === "bn" ? "১০০%" : "100%"} label={t("stat.client")} />
           </div>
 
