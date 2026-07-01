@@ -35,7 +35,7 @@ type AuditResult = {
   circle: string;
   submission_type: string;
   assessment_year: string;
-  source: 0 | 1 | 2;
+  source: 0 | 1 | 2 | 3 | 4 | 5 | 6;
 };
 
 type AuditDB = {
@@ -117,7 +117,7 @@ function Index() {
         circle: db.circles[row[1]],
         submission_type: row[2],
         assessment_year: row[3],
-        source: ((row[4] ?? 0) as 0 | 1 | 2),
+        source: ((row[4] ?? 0) as 0 | 1 | 2 | 3 | 4 | 5 | 6),
       });
       setStatus("found");
       analytics.tinFound(db.zones[row[0]], row[3]);
