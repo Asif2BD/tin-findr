@@ -20,7 +20,7 @@ export function toBnDigits(input: string | number): string {
 
 /** Format a number with locale-aware grouping, Bangla numerals when lang=bn. */
 export function fmtNumber(n: number, lang: Lang): string {
-  const grouped = n.toLocaleString("en-US"); // 87,685
+  const grouped = n.toLocaleString("en-US"); // 92,699
   return lang === "bn" ? toBnDigits(grouped) : grouped;
 }
 
@@ -130,7 +130,7 @@ const en: Dict = {
   "how.steps.heading": "How the verification process works",
   "how.step1.title": "You open the page",
   "how.step1.body":
-    "Your browser downloads the website code and the audit list (audit.json — about 87,685 TIN records published by NBR). The list is delivered as a static file from our CDN, just like an image or a stylesheet.",
+    "Your browser downloads the website code and the audit list (audit.json — about 92,699 TIN records published by NBR). The list is delivered as a static file from our CDN, just like an image or a stylesheet.",
   "how.step2.title": "You type your TIN",
   "how.step2.body":
     "The 12-digit TIN you type lives only in your browser's memory. There is no auto-save, no background sync, no 'as-you-type' API call. Nothing is transmitted while you type.",
@@ -194,7 +194,7 @@ const en: Dict = {
 
   "faq.q4": "Where does the data come from?",
   "faq.a4":
-    "From two officially published NBR sources: the 49-zone master list (72,196 entries) and the 8-zone supplementary list (15,489 entries). Combined: 87,685 returns. Source: NBR press release dated 28 April 2026.",
+    "From three officially published NBR sources: the 49-zone master list (72,196 entries), the 8-zone supplementary list (15,489 entries), and the Audit Selection V3 2023-24 list (5,014 entries). Combined: 92,699 returns. Sources: NBR press release dated 28 April 2026 plus the AUDIT_SELECTION_V3_2023-2024 PDF.",
 
   "faq.q5": "Do you store my TIN or send it anywhere?",
   "faq.a5":
@@ -320,7 +320,7 @@ const bn: Dict = {
   "how.steps.heading": "যাচাই প্রক্রিয়া কীভাবে কাজ করে",
   "how.step1.title": "আপনি পেজ খুলুন",
   "how.step1.body":
-    "আপনার ব্রাউজার ওয়েবসাইটের কোড এবং অডিট তালিকা (audit.json — NBR প্রকাশিত প্রায় ৮৭,৬৮৫টি TIN রেকর্ড) ডাউনলোড করে। তালিকাটি একটি ছবি বা স্টাইলশীটের মতো আমাদের CDN থেকে স্ট্যাটিক ফাইল হিসেবে সরবরাহ করা হয়।",
+    "আপনার ব্রাউজার ওয়েবসাইটের কোড এবং অডিট তালিকা (audit.json — NBR প্রকাশিত প্রায় ৯২,৬৯৯টি TIN রেকর্ড) ডাউনলোড করে। তালিকাটি একটি ছবি বা স্টাইলশীটের মতো আমাদের CDN থেকে স্ট্যাটিক ফাইল হিসেবে সরবরাহ করা হয়।",
   "how.step2.title": "আপনি আপনার TIN টাইপ করুন",
   "how.step2.body":
     "আপনি যে ১২-ডিজিট TIN টাইপ করেন তা শুধু আপনার ব্রাউজারের মেমরিতে থাকে। কোনো অটো-সেভ নেই, কোনো ব্যাকগ্রাউন্ড সিঙ্ক নেই, টাইপ করার সময় কোনো API কল নেই। টাইপ করার সময় কিছুই প্রেরণ হয় না।",
@@ -384,7 +384,7 @@ const bn: Dict = {
 
   "faq.q4": "ডেটা কোথা থেকে আসে?",
   "faq.a4":
-    "দুটি অফিসিয়ালি প্রকাশিত NBR উৎস থেকে: ৪৯-জোন মাস্টার তালিকা (৭২,১৯৬টি এন্ট্রি) এবং ৮-জোন সম্পূরক তালিকা (১৫,৪৮৯টি এন্ট্রি)। মোট: ৮৭,৬৮৫টি রিটার্ন। উৎস: ২৮ এপ্রিল ২০২৬ তারিখের NBR প্রেস রিলিজ।",
+    "তিনটি অফিসিয়ালি প্রকাশিত NBR উৎস থেকে: ৪৯-জোন মাস্টার তালিকা (৭২,১৯৬টি এন্ট্রি), ৮-জোন সম্পূরক তালিকা (১৫,৪৮৯টি এন্ট্রি), এবং অডিট নির্বাচন V3 ২০২৩-২৪ তালিকা (৫,০১৪টি এন্ট্রি)। মোট: ৯২,৬৯৯টি রিটার্ন। উৎস: ২৮ এপ্রিল ২০২৬ তারিখের NBR প্রেস রিলিজ ও AUDIT_SELECTION_V3_2023-2024 PDF।",
 
   "faq.q5": "আপনারা কি আমার TIN সংরক্ষণ করেন বা কোথাও পাঠান?",
   "faq.a5":
