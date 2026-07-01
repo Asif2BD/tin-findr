@@ -8,9 +8,9 @@ Author: M Asif Rahman — https://masifrahman.com/
 
 ## What this site does
 
-The National Board of Revenue (NBR) of Bangladesh publishes, by press release, a list of taxpayers whose returns for Assessment Year 2023–24 have been selected for audit under its Risk-Based Audit Selection criteria. The official list is distributed as PDFs across two press releases (a 49-zone master list with 72,196 entries, and an 8-zone supplementary list with 15,489 entries) for a combined 87,685 records.
+The National Board of Revenue (NBR) of Bangladesh publishes, by press release, a list of taxpayers whose returns for Assessment Year 2023–24 have been selected for audit under its Risk-Based Audit Selection criteria. The official list is distributed as PDFs across three publications (a 49-zone master list with 72,196 entries, an 8-zone supplementary list with 15,489 entries, and the Audit Selection V3 2023-24 list with 5,014 additional entries) for a combined 92,699 records.
 
-This site loads that combined dataset once (a ~4.2 MB JSON file at /data/audit.json) and lets a visitor check, in their browser, whether a specific 12-digit TIN appears in the list. The lookup is an O(1) hash lookup against an in-memory object — the TIN never leaves the device.
+This site loads that combined dataset once (a ~4.5 MB JSON file at /data/audit.json) and lets a visitor check, in their browser, whether a specific 12-digit TIN appears in the list. The lookup is an O(1) hash lookup against an in-memory object — the TIN never leaves the device.
 
 ## Privacy model
 
@@ -21,8 +21,8 @@ This site loads that combined dataset once (a ~4.2 MB JSON file at /data/audit.j
 
 ## Data source and limitations
 
-- Source: NBR press release dated 28 April 2026 plus the supplementary list published shortly after.
-- The headline figure in the original press release is 72,341 selected returns; the published lists together total 87,685 records. The site uses the larger combined figure.
+- Sources: NBR press release dated 28 April 2026 plus the supplementary list published shortly after, and the AUDIT_SELECTION_V3_2023-2024 PDF published by NBR (https://nbr.gov.bd/uploads/publications/AUDIT_SELECTION_V3_2023-2024.pdf).
+- The headline figure in the original press release is 72,341 selected returns; the three published lists together total 92,699 records. The site uses the combined figure.
 - A "Not Selected" result only means the TIN is not in the published audit list. It does NOT confirm the number is a valid, NBR-issued TIN. The site cannot verify TIN authenticity — only NBR can.
 - Selection criteria are determined by NBR's automated risk model; this site does not and cannot explain why a specific TIN was selected.
 - Results are informational. Always confirm audit status with NBR or your tax circle before acting on them.

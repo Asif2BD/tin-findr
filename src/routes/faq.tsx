@@ -17,7 +17,7 @@ const FAQ_QA: { q: string; a: string }[] = [
   },
   {
     q: "Where does the data come from?",
-    a: "From two officially published NBR sources: the 49-zone master list (72,196 entries) and the 8-zone supplementary list (15,489 entries). Combined: 87,685 returns. Source: NBR press release dated 28 April 2026.",
+    a: "From three officially published NBR sources: the 49-zone master list (72,196 entries), the 8-zone supplementary list (15,489 entries), and the Audit Selection V3 2023-24 list (5,014 entries). Combined: 92,699 returns. Sources: NBR press release dated 28 April 2026 plus the AUDIT_SELECTION_V3_2023-2024 PDF.",
   },
   {
     q: "Do you store my TIN or send it anywhere?",
