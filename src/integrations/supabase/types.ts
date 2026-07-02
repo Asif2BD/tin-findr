@@ -14,7 +14,66 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      alert_log: {
+        Row: {
+          email_status: string | null
+          id: string
+          matched_source: number | null
+          sent_at: string
+          tin: string
+          user_id: string
+        }
+        Insert: {
+          email_status?: string | null
+          id?: string
+          matched_source?: number | null
+          sent_at?: string
+          tin: string
+          user_id: string
+        }
+        Update: {
+          email_status?: string | null
+          id?: string
+          matched_source?: number | null
+          sent_at?: string
+          tin?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      watched_tins: {
+        Row: {
+          created_at: string
+          id: string
+          label: string | null
+          last_checked_at: string | null
+          matched_at: string | null
+          matched_source: number | null
+          tin: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          label?: string | null
+          last_checked_at?: string | null
+          matched_at?: string | null
+          matched_source?: number | null
+          tin: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          label?: string | null
+          last_checked_at?: string | null
+          matched_at?: string | null
+          matched_source?: number | null
+          tin?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
