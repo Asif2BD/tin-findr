@@ -341,6 +341,35 @@ function Index() {
             <Stat value={lang === "bn" ? "১০০%" : "100%"} label={t("stat.client")} />
           </div>
 
+          <div className="mt-6 rounded-2xl border border-border bg-card p-4 sm:p-5 shadow-[var(--shadow-card)]">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4 justify-between">
+              <div className="min-w-0">
+                <div className="flex items-center gap-2">
+                  <span className="inline-flex h-6 items-center rounded-full bg-[color:var(--accent)] px-2 text-[10px] font-semibold uppercase tracking-wide text-accent-foreground">
+                    Optional · Opt-in
+                  </span>
+                </div>
+                <div className="mt-2 font-semibold text-foreground">
+                  Want to know about future lists too?
+                </div>
+                <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
+                  Save your TIN and we'll email you if it appears on a future
+                  NBR audit list.{" "}
+                  <strong className="text-foreground">
+                    Different from the checker above:
+                  </strong>{" "}
+                  this feature stores your TIN in our database.
+                </p>
+              </div>
+              <Link
+                to="/alerts"
+                className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-[color:var(--warning)] bg-background px-4 py-2.5 text-sm font-semibold text-foreground hover:bg-accent transition whitespace-nowrap self-start sm:self-auto"
+              >
+                Get audit alerts →
+              </Link>
+            </div>
+          </div>
+
           <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="rounded-xl border border-border bg-card p-4 sm:p-5 text-sm text-muted-foreground leading-relaxed flex flex-col gap-3">
               <div>
